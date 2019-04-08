@@ -36,28 +36,28 @@
             >
 
             <EditText
-                android:layout_marginTop="10dp"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#FFF"
                 android:gravity="center"
                 android:hint="Email"
+                android:inputType="textEmailAddress"
                 android:textColorHint="#FFF"
-                android:textStyle="bold"
-                android:layout_gravity="center_horizontal"
-                android:backgroundTint="#FFF"
-                />
+                android:textStyle="bold" />
 
             <EditText
-                android:textStyle="bold"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:hint="Password"
-                android:textColorHint="#FFF"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="10dp"
                 android:background="@null"
-                />
+                android:gravity="center"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:textColorHint="#FFF"
+                android:textStyle="bold" />
         </LinearLayout>
         <Button
             android:layout_width="200dp"
@@ -102,21 +102,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <Button
-                android:text="f"
                 android:textColor="#FFF"
                 android:textSize="20dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/circle_gmail"/>/>
+                android:background="@drawable/icon_facebook"/>/>
 
             <Button
                 android:layout_marginLeft="45dp"
-                android:text="G+"
                 android:textColor="#FFF"
                 android:textSize="20dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/circle_gmail"/>
+                android:background="@drawable/icon_gmail"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -153,10 +151,5 @@
             android:layout_marginBottom="20dp"
             android:textStyle="bold"/>
     </RelativeLayout>
-
-
-
-
-
 </LinearLayout>
 

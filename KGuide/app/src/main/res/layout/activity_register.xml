@@ -43,33 +43,39 @@
             android:hint="Surname"
             android:gravity="center"
             android:background="@drawable/circle_background_register"/>
+
         <EditText
-            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle_background_register"
+            android:gravity="center"
             android:hint="Email"
-            android:textStyle="bold"
+            android:inputType="textEmailAddress"
             android:textColorHint="#FFF"
-            android:gravity="center"
-            android:background="@drawable/circle_background_register"/>
+            android:textStyle="bold" />
+
         <EditText
-            android:textStyle="bold"
-            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
-            android:textColorHint="#FFF"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle_background_register"
+            android:gravity="center"
             android:hint="Password"
-            android:gravity="center"
-            android:layout_height="50dp"
-            android:background="@drawable/circle_background_register"/>
+            android:inputType="textPassword"
+            android:textColorHint="#FFF"
+            android:textStyle="bold" />
+
         <EditText
-            android:textStyle="bold"
-            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textColorHint="#FFF"
-            android:hint="Confirm password"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle_background_register"
             android:gravity="center"
-            android:background="@drawable/circle_background_register"/>
+            android:hint="Confirm password"
+            android:inputType="textPassword"
+            android:textColorHint="#FFF"
+            android:textStyle="bold" />
 
     </LinearLayout>
     <Button
