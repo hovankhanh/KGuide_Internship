@@ -10,14 +10,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.khanhho.kguide.Adapter.TouristFragmentAdapter;
 import com.example.khanhho.kguide.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private ViewPager nVPTourist;
+        private ViewPager nVPTourist;
 
 
     @Override
@@ -94,6 +96,28 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu,menu);
+        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                Toast.makeText(MainActivity.this, "quang khanh1",Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                Toast.makeText(MainActivity.this, "quang khanh2",Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        };
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchItem.setOnActionExpandListener(onActionExpandListener);
         return true;
     }
 
