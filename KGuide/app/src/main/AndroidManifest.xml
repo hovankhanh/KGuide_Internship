@@ -23,7 +23,7 @@
         <activity android:name=".Activities.RegisterActivity" />
         <activity android:name=".Activities.OptionActivity" />
         <activity android:name=".Activities.EditProfileActivity" />
-        <activity android:name=".Activities.TourDetailActivity" />
+        <activity android:name=".Activities.TourDetailActivity" ></activity>
         <activity android:name=".Activities.GuideDetailActivity"></activity>
     </application>
 

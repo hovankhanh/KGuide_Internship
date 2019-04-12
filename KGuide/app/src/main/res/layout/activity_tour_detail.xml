@@ -1,42 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.TourDetailActivity"
-    android:orientation="vertical">
+    tools:context=".Activities.TourDetailActivity">
+
+    <ImageView
+        android:id="@+id/img_imagetour"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/us"/>
 
     <android.support.v7.widget.Toolbar
+        app:titleTextColor="#DA0909"
+        app:title="Tour's name"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#FFF">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Edit Profile"
-                android:textColor="#BB0000"
-                android:textStyle="bold"/>
-            <TextView
-                android:textColor="#BB0000"
-                android:layout_marginRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Save"
-                android:gravity="right" />
-        </RelativeLayout>
+        android:background="#00E7E0E0">
     </android.support.v7.widget.Toolbar>
-    <View
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:background="@android:color/black" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_long"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/hahaha"></TextView>
+
+                <Button
+                    android:id="@+id/btn_act"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View"></Button>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
 
-</LinearLayout>
+
+</RelativeLayout>

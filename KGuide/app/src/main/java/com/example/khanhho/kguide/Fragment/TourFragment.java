@@ -1,5 +1,6 @@
 package com.example.khanhho.kguide.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.khanhho.kguide.Activities.TourDetailActivity;
 import com.example.khanhho.kguide.Adapter.RecycleTourAdapter;
 import com.example.khanhho.kguide.Model.Tour;
 import com.example.khanhho.kguide.R;
@@ -35,9 +37,9 @@ public class TourFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(adapter);
-
         saveTourData();
         return nRootView;
+
     }
 
     private void saveTourData() {
