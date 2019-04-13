@@ -6,12 +6,116 @@
     android:layout_height="match_parent"
     tools:context=".Activities.TourDetailActivity">
 
-    <ImageView
-        android:id="@+id/img_imagetour"
-        android:scaleType="centerCrop"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/us"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/img_imagetour"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/us"/>
+
+                <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="350dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_long"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Location:"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Name City"
+                            android:textColor="@android:color/black"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="45 VND"
+                            android:gravity="right"
+                            android:textColor="@android:color/black"/>
+
+                    </LinearLayout>
+                    <View
+                        android:layout_marginTop="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@android:color/black"/>
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hahaha"
+                        android:layout_marginBottom="10dp"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@android:color/black"/>
+
+                    <TextView
+                        android:layout_marginTop="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Local topics:"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Topic"
+                        android:textColor="@android:color/black"/>
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Service:"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Laguages:"
+                        android:textColor="@android:color/black"/>
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Local topics"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Topic"
+                        android:textColor="@android:color/black"/>
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Guide:"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Name guide"
+                        android:textColor="@android:color/black"
+                        android:layout_marginBottom="60dp"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
 
     <android.support.v7.widget.Toolbar
         app:titleTextColor="#DA0909"
@@ -21,37 +125,31 @@
         android:layout_height="?attr/actionBarSize"
         android:background="#00E7E0E0">
     </android.support.v7.widget.Toolbar>
-
     <LinearLayout
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_long"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/hahaha"></TextView>
-
-                <Button
-                    android:id="@+id/btn_act"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="View"></Button>
-            </LinearLayout>
-        </ScrollView>
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:weightSum="4"
+        android:background="#B20A0A0A">
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_weight="4"
+            android:gravity="left"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="45 VND"
+            android:textColor="@android:color/background_light"/>
+        <Button
+            android:textColor="#FFF"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+            android:text="BOOK"
+            android:background="#f50a0a"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center"/>
     </LinearLayout>
-
-
-
 </RelativeLayout>
