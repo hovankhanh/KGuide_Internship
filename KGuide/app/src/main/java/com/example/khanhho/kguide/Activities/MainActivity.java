@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(login);
 
         } else if (id == R.id.nav_manage) {
-            Intent login = new Intent(this, TourDetailActivity.class);
+            Intent login = new Intent(this, EditProfileActivity.class);
             startActivity(login);
 
         }
