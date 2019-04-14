@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
     }
 
 
@@ -54,7 +52,6 @@ public class MainActivity extends AppCompatActivity
         nVPTourist.setAdapter(myPagerAdapter);
         TabLayout tablayout = (TabLayout) findViewById(R.id.tablayout);
         tablayout.setupWithViewPager(nVPTourist);
-
     }
 
 
@@ -89,9 +86,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(login);
 
         } else if (id == R.id.nav_manage) {
-            Intent login = new Intent(this, EditProfileActivity.class);
+            Intent login = new Intent(this, GuideDetailActivity.class);
             startActivity(login);
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
