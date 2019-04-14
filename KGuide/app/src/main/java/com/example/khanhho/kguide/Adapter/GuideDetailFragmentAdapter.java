@@ -6,25 +6,26 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.khanhho.kguide.Fragment.GuideFragment;
+import com.example.khanhho.kguide.Fragment.RatingFragment;
+import com.example.khanhho.kguide.Fragment.TourDetailFragment;
 import com.example.khanhho.kguide.Fragment.TourFragment;
 
-public class TouristFragmentAdapter extends FragmentStatePagerAdapter {
-    private String listTab[] = {"Tour","Guide"};
-    private TourFragment nTourFragment;
-    private GuideFragment nGuideFragment;
-
-    public TouristFragmentAdapter(FragmentManager fm) {
+public class GuideDetailFragmentAdapter extends FragmentStatePagerAdapter {
+    private String listTab[] = {"Tour","Rating"};
+    private TourDetailFragment nTourDetailFragment;
+    private RatingFragment nRatingFragment;
+    public GuideDetailFragmentAdapter(FragmentManager fm) {
         super(fm);
-        nTourFragment = new TourFragment();
-        nGuideFragment = new GuideFragment();
+        nTourDetailFragment = new TourDetailFragment();
+        nRatingFragment = new RatingFragment();
     }
 
     @Override
     public Fragment getItem(int i) {
         if (i == 0){
-            return nTourFragment;
+            return nTourDetailFragment;
         }else if (i == 1){
-            return nGuideFragment;
+            return nRatingFragment;
         }else {
 
         }
