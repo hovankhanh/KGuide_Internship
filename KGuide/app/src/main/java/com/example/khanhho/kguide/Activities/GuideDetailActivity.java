@@ -36,7 +36,7 @@ public class GuideDetailActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    
+
     private void ViewTouristFragment() {
         GuideDetailFragmentAdapter myPagerAdapter = new GuideDetailFragmentAdapter(getSupportFragmentManager());
         nVPTourist.setAdapter(myPagerAdapter);
