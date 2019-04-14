@@ -58,15 +58,6 @@ public class TourFragment extends Fragment {
         tour = new Tour(R.drawable.vn, "Action & Adventure", 17);
         tourList.add(tour);
 
-        tour = new Tour(R.drawable.rs, "Action & Adventure", 12);
-        tourList.add(tour);
-
-        tour = new Tour(R.drawable.us, "Action & Adventure", 10);
-        tourList.add(tour);
-
-        tour = new Tour(R.drawable.vn, "Action & Adventure", 17);
-        tourList.add(tour);
-
         adapter.notifyDataSetChanged();
     }
 

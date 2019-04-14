@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.example.khanhho.kguide.Activities.GuideDetailActivity;
 import com.example.khanhho.kguide.Activities.MainActivity;
 import com.example.khanhho.kguide.Activities.TourDetailActivity;
 import com.example.khanhho.kguide.Adapter.GridGuideAdapter;
@@ -41,7 +40,7 @@ public class GuideFragment extends Fragment {
                 Guide country = (Guide) o;
                 Toast.makeText(getContext(), "Selected :"
                         + " " + country, Toast.LENGTH_LONG).show();
-                Intent login = new Intent(getContext(), GuideDetailActivity.class);
+                Intent login = new Intent(getContext(), TourDetailActivity.class);
                 startActivity(login);
             }
         });

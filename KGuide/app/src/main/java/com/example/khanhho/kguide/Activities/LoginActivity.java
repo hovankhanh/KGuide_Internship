@@ -27,17 +27,17 @@ public class LoginActivity extends AppCompatActivity {
     // Declaring the firebase lib.
     FirebaseAuth mAuth;
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        // Automatic login
-        if(mAuth.getCurrentUser() != null) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+//        // Automatic login
+//        if(mAuth.getCurrentUser() != null) {
+//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//    }
 
 
     @Override
@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         link_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, OptionActivity.class);
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });

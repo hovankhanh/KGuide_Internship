@@ -16,12 +16,10 @@ import android.widget.Toast;
 
 import com.example.khanhho.kguide.Adapter.TouristFragmentAdapter;
 import com.example.khanhho.kguide.R;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
         private ViewPager nVPTourist;
-        FirebaseAuth mAuth;
 
 
     @Override
@@ -29,7 +27,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mAuth = FirebaseAuth.getInstance();
         setSupportActionBar(toolbar);
         Radiation();
         ViewTouristFragment();
@@ -77,20 +74,19 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            Intent login = new Intent(this, GuideDetailActivity.class);
+            Intent login = new Intent(this, LoginActivity.class);
             startActivity(login);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-            Intent login = new Intent(this, TourDetailActivity.class);
+            Intent login = new Intent(this, RegisterActivity.class);
             startActivity(login);
 
         } else if (id == R.id.nav_slideshow) {
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            finish();
+            Intent login = new Intent(this, OptionActivity.class);
+            startActivity(login);
 
         } else if (id == R.id.nav_manage) {
-            Intent login = new Intent(this, EditProfileActivity.class);
+            Intent login = new Intent(this, GuideDetailActivity.class);
             startActivity(login);
         }
 

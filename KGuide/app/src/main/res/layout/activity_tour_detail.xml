@@ -14,12 +14,12 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <ViewFlipper
-                    android:id="@+id/viewlipper"
+                <ImageView
+                    android:id="@+id/img_imagetour"
+                    android:scaleType="centerCrop"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp">
-
-                </ViewFlipper>
+                    android:layout_height="200dp"
+                    android:src="@drawable/us"/>
 
                 <LinearLayout
                     android:layout_marginTop="20dp"
@@ -87,19 +87,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:text="swimming"
+                        android:text="Laguages:"
                         android:textColor="@android:color/black"/>
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Laguages:"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:text="English"
-                        android:textColor="@android:color/black" />
                     <TextView
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
