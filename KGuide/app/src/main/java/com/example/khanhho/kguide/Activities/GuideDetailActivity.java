@@ -24,6 +24,7 @@ public class GuideDetailActivity extends AppCompatActivity {
         this.getSupportActionBar().setDisplayShowHomeEnabled(true);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         nVPTourist = (ViewPager) findViewById(R.id.vp_tourist);
+        ViewTouristFragment();
 
     }
 

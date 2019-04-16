@@ -6,7 +6,8 @@
     android:gravity="center">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcv_tour"
-        android:layout_width="wrap_content"
+        android:layout_width="370dp"
+        android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
         android:orientation="vertical">
     </android.support.v7.widget.RecyclerView>

@@ -28,19 +28,7 @@ public class TourDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        nRootView = inflater.inflate(R.layout.fragment_tour_detail, container, false);
-
-        mRecyclerView = nRootView.findViewById(R.id.rcv_tour);
-        adapter = new RecycleTourAdapter(tourList,getContext());
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setAdapter(adapter);
-        if (CheckConnection.haveNetworkConnection(getContext())){
-            saveTourData();
-        }else {
-            CheckConnection.ShowToast_Short(getContext(),"");
-        }
+        nRootView = inflater.inflate(R.layout.fragment_tour_guide, container, false);
 
         return nRootView;
     }

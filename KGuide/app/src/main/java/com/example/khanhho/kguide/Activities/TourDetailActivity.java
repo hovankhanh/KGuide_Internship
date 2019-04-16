@@ -59,5 +59,4 @@ public class TourDetailActivity extends AppCompatActivity {
         viewFlipper.setAnimation(animation_slide_in);
         viewFlipper.setAnimation(animation_slide_out);
     }
-
 }
