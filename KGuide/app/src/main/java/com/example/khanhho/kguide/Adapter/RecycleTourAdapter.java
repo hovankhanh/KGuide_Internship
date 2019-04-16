@@ -1,5 +1,7 @@
 package com.example.khanhho.kguide.Adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.khanhho.kguide.Activities.TourDetailActivity;
 import com.example.khanhho.kguide.Model.Tour;
 import com.example.khanhho.kguide.R;
 
@@ -16,9 +19,12 @@ import java.util.List;
 public class RecycleTourAdapter extends RecyclerView.Adapter<RecycleTourAdapter.ImageViewHoder>{
 
     private List<Tour> tourList;
-    public RecycleTourAdapter(List<Tour> tourList){
+    public RecycleTourAdapter(List<Tour> tourList, Context context){
         this.tourList = tourList;
+        this.context = context;
     }
+    Context context;
+
 
 
     @NonNull
@@ -31,12 +37,18 @@ public class RecycleTourAdapter extends RecyclerView.Adapter<RecycleTourAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHoder viewHolder, int i) {
-        Tour tour = tourList.get(i);
+        final Tour tour = tourList.get(i);
         viewHolder.imgImage.setImageResource(tour.getImageTour());
         viewHolder.tvTourName.setText(tour.getNameTour());
         viewHolder.tvPrice.setText(tour.getPriceTour()+" VND");
 
-
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent tourDetail = new Intent(context, TourDetailActivity.class);
+                context.startActivity(tourDetail);
+            }
+        });
     }
 
     @Override
