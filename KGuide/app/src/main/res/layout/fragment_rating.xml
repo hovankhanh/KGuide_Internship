@@ -26,29 +26,22 @@
             android:background="@drawable/circle_avatar"/>
 
         <TextView
+            android:textColor="@android:color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="User Name"
             android:id="@+id/tv_name"
-            android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/img_avatar"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_above="@+id/textView_population"
-            android:layout_margin="5dp" />
+            android:layout_above="@+id/textView_population" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="11:20 Apr 21,2019"
             android:id="@+id/textView_population"
             android:layout_alignBottom="@+id/img_avatar"
             android:layout_alignLeft="@+id/tv_name"
             android:layout_alignStart="@+id/tv_name"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:layout_margin="5dp" />
     </RelativeLayout>
     <LinearLayout
@@ -99,27 +92,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="User Name"
             android:id="@+id/tv_name1"
-            android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/img_avatar1"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:layout_above="@+id/textView_population1"
-            android:layout_margin="5dp" />
+            android:textColor="@android:color/black"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="11:20 Apr 21,2019"
             android:id="@+id/textView_population1"
             android:layout_alignBottom="@+id/img_avatar1"
             android:layout_alignLeft="@+id/tv_name1"
             android:layout_alignStart="@+id/tv_name1"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:layout_margin="5dp" />
     </RelativeLayout>
     <LinearLayout
@@ -168,29 +155,22 @@
             android:background="@drawable/circle_avatar"/>
 
         <TextView
+            android:textColor="@android:color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="User Name"
             android:id="@+id/tv_name2"
-            android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/img_avatar2"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_above="@+id/textView_population2"
-            android:layout_margin="5dp" />
+            android:layout_above="@+id/textView_population2"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="11:20 Apr 21,2019"
             android:id="@+id/textView_population2"
             android:layout_alignBottom="@+id/img_avatar2"
             android:layout_alignLeft="@+id/tv_name2"
             android:layout_alignStart="@+id/tv_name2"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:layout_margin="5dp" />
     </RelativeLayout>
     <LinearLayout

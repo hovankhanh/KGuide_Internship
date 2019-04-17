@@ -54,13 +54,23 @@ public class GuideFragment extends Fragment {
         Guide usa = new Guide("United States", "us", 3);
         Guide russia = new Guide("Russia", "rs", 3);
         Guide australia = new Guide("Australia", "vn", 5);
-        Guide japan = new Guide("Japan", "rr", 3);
+        Guide japan = new Guide("Japan", "rs", 3);
+        Guide vietnam1 = new Guide("Vietnam", "vn", 1);
+        Guide usa1 = new Guide("United States", "us", 3);
+        Guide russia1 = new Guide("Russia", "rs", 3);
+        Guide australia1 = new Guide("Australia", "vn", 5);
+        Guide japan1 = new Guide("Japan", "rs", 3);
 
         list.add(vietnam);
         list.add(usa);
         list.add(russia);
         list.add(australia);
         list.add(japan);
+        list.add(vietnam1);
+        list.add(usa1);
+        list.add(russia1);
+        list.add(australia1);
+        list.add(japan1);
 
         return list;
     }
