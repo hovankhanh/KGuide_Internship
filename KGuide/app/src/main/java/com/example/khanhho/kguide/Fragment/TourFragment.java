@@ -33,7 +33,7 @@ public class TourFragment extends Fragment {
         nRootView = inflater.inflate(R.layout.fragment_tour, container, false);
 
         mRecyclerView = nRootView.findViewById(R.id.rcv_tour);
-        adapter = new RecycleTourAdapter(tourList);
+        adapter = new RecycleTourAdapter(tourList,getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());

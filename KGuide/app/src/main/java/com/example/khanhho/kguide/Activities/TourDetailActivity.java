@@ -58,8 +58,5 @@ public class TourDetailActivity extends AppCompatActivity {
         Animation  animation_slide_out = AnimationUtils.loadAnimation(this, R.anim.slide_out_right);
         viewFlipper.setAnimation(animation_slide_in);
         viewFlipper.setAnimation(animation_slide_out);
-
-
     }
-
 }

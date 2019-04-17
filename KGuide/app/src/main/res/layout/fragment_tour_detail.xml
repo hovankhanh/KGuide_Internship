@@ -4,11 +4,138 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#FFF">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rcv_tour"
-        android:layout_width="wrap_content"
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@android:color/black" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/img_avatar1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/circle_avatar"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="15dp"
+            android:text="User Name"
+            android:id="@+id/tv_name1"
+            android:layout_toRightOf="@+id/img_avatar1"
+            android:layout_above="@+id/textView_population1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11:20 Apr 21,2019"
+            android:id="@+id/textView_population1"
+            android:layout_alignBottom="@+id/img_avatar1"
+            android:layout_alignLeft="@+id/tv_name1"
+            android:layout_alignStart="@+id/tv_name1"
+            android:layout_margin="5dp" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-    </android.support.v7.widget.RecyclerView>
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="conttenconttenconttenconttenconttenconttenconttencontten"
+            android:layout_marginLeft="30dp"/>
+        <RatingBar
+            android:layout_gravity="right"
+            style="?android:attr/ratingBarStyleSmall"
+            android:id="@+id/rtb_star1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1.0"
+            android:rating="3.0"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@android:color/black" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/img_avatar2"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/circle_avatar"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="15dp"
+            android:text="User Name"
+            android:id="@+id/tv_name2"
+            android:layout_toRightOf="@+id/img_avatar2"
+            android:layout_above="@+id/textView_population2"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11:20 Apr 21,2019"
+            android:id="@+id/textView_population2"
+            android:layout_alignBottom="@+id/img_avatar2"
+            android:layout_alignLeft="@+id/tv_name2"
+            android:layout_alignStart="@+id/tv_name2"
+            android:layout_margin="5dp" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="conttenconttenconttenconttenconttenconttenconttencontten"
+            android:layout_marginLeft="30dp"/>
+        <RatingBar
+            android:layout_gravity="right"
+            style="?android:attr/ratingBarStyleSmall"
+            android:id="@+id/rtb_star2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1.0"
+            android:rating="3.0"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@android:color/black"/>
 
 </LinearLayout>
