@@ -21,11 +21,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText edt_email, edt_username, edt_password, edt_password2;
+    EditText edt_email, edtName, edt_password, edt_password2, edtSurname;
     Button btn_Register;
     TextView link_register;
+    String currentUser;
 
     // Firebase Setup
     FirebaseAuth mAuth;
@@ -36,7 +38,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        edt_username = findViewById(R.id.username);
+        edtName = findViewById(R.id.edt_name);
+        edtSurname = findViewById(R.id.edt_surname);
         edt_email = findViewById(R.id.email);
         edt_password = findViewById(R.id.password);
         edt_password2 = findViewById(R.id.password2);
@@ -48,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
         btn_Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String txt_username = edt_username.getText().toString();
+                String txt_username = edtName.getText().toString();
                 String txt_email = edt_email.getText().toString();
                 String txt_password = edt_password.getText().toString();
                 String txt_password2 = edt_password2.getText().toString();
@@ -73,7 +76,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                         registerUser(txt_username, txt_email, txt_password);
                     }
-
                 }
 
             }
@@ -90,12 +92,20 @@ public class RegisterActivity extends AppCompatActivity {
                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
                             assert firebaseUser != null;
                             String userId = firebaseUser.getUid();
+                            currentUser = mAuth.getCurrentUser().getUid();
+                            String name = edtName.getText().toString();
+                            String surname = edtSurname.getText().toString();
 
-                            reference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+                            reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser);
 
-                            HashMap<String, String> hashMap = new HashMap<>();
-                            hashMap.put("id", userId);
-                            hashMap.put("username", username);
+//                            HashMap<String, String> hashMap = new HashMap<>();
+////                            hashMap.put("id", userId);
+////                            hashMap.put("username", username);
+                            Map map = new HashMap();
+                            map.put("firstname",name);
+                            map.put("surname",name);
+                            map.put("status", "tourist");
+                            reference.updateChildren(map);
                             Toast.makeText(RegisterActivity.this, "Successful Registration!",
                                     Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);

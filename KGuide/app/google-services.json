@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "624269544337-cdigg8u7eghrqc38ngsme28miv6qti6g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.khanhho.kguide",
+            "certificate_hash": "5284f6bcc683bb245f62d0965cf48201c2eb0859"
+          }
+        },
+        {
           "client_id": "624269544337-p54ur2ajg1ppo19lr1s4881j8ss6r2sg.apps.googleusercontent.com",
           "client_type": 3
         }

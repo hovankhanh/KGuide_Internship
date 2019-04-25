@@ -28,7 +28,7 @@
         android:layout_gravity="center_horizontal">
 
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/edt_name"
             android:textStyle="bold"
             android:textColorHint="#FFF"
             android:layout_width="match_parent"
@@ -43,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Surname"
+            android:id="@+id/edt_surname"
             android:gravity="center"
             android:background="@drawable/circle_background_register"/>
 
