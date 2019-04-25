@@ -1,11 +1,12 @@
 package com.example.khanhho.kguide.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.khanhho.kguide.Adapter.GuideFragmentAdapter;
 import com.example.khanhho.kguide.Adapter.TouristFragmentAdapter;
 import com.example.khanhho.kguide.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,19 +30,25 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mAuth = FirebaseAuth.getInstance();
         setSupportActionBar(toolbar);
         Radiation();
-        ViewTouristFragment();
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+        if (sharedPreferences.getString("user", "").equals("guide")){
+            ViewGuideFragment();
+        }else {
+            ViewTouristFragment();
+        }
     }
 
 
@@ -50,8 +58,14 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    private void ViewTouristFragment() {
+    private void ViewTouristFragment(){
         TouristFragmentAdapter myPagerAdapter = new TouristFragmentAdapter(getSupportFragmentManager());
+        nVPTourist.setAdapter(myPagerAdapter);
+        TabLayout tablayout = (TabLayout) findViewById(R.id.tablayout);
+        tablayout.setupWithViewPager(nVPTourist);
+    }
+    private void ViewGuideFragment(){
+        GuideFragmentAdapter myPagerAdapter = new GuideFragmentAdapter(getSupportFragmentManager());
         nVPTourist.setAdapter(myPagerAdapter);
         TabLayout tablayout = (TabLayout) findViewById(R.id.tablayout);
         tablayout.setupWithViewPager(nVPTourist);
@@ -77,11 +91,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            Intent login = new Intent(this, GuideDetailActivity.class);
+            Intent login = new Intent(this, TourDetailActivity.class);
             startActivity(login);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-            Intent login = new Intent(this, TourDetailActivity.class);
+            Intent login = new Intent(this, MyTourTouristActivity.class);
             startActivity(login);
 
         } else if (id == R.id.nav_slideshow) {
@@ -120,6 +134,4 @@ public class MainActivity extends AppCompatActivity
         searchItem.setOnActionExpandListener(onActionExpandListener);
         return true;
     }
-
-
 }

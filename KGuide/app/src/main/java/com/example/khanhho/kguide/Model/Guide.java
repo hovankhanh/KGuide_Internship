@@ -7,6 +7,14 @@ public class Guide {
     // Image name (Without extension)
     private String avarta;
     private int star;
+    private String id;
+
+    public Guide(String nameGuide, String avarta, int star, String id) {
+        this.nameGuide = nameGuide;
+        this.avarta = avarta;
+        this.star = star;
+        this.id = id;
+    }
 
     public Guide(String nameGuide, String avarta, int star) {
         this.nameGuide = nameGuide;
