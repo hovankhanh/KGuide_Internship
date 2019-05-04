@@ -3,7 +3,6 @@ package com.example.khanhho.kguide.Model;
 public class Guide {
 
     private String nameGuide;
-
     // Image name (Without extension)
     private String avarta;
     private int star;

@@ -1,27 +1,16 @@
 package com.example.khanhho.kguide.Model;
 
 public class Tourist {
-    private String id;
-    private String name;
+    public String username;
+    public String email;
 
-    public Tourist(String id, String name) {
-        this.id = id;
-        this.name = name;
+    public Tourist() {
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public String getId() {
-        return id;
+    public Tourist(String username, String email) {
+        this.username = username;
+        this.email = email;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

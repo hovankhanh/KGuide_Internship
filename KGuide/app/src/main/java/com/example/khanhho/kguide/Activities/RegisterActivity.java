@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.khanhho.kguide.Model.Tourist;
 import com.example.khanhho.kguide.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -73,7 +74,6 @@ public class RegisterActivity extends AppCompatActivity {
                         return;
 
                     } else {
-
                         registerUser(txt_username, txt_email, txt_password);
                     }
                 }
@@ -101,10 +101,19 @@ public class RegisterActivity extends AppCompatActivity {
 //                            HashMap<String, String> hashMap = new HashMap<>();
 ////                            hashMap.put("id", userId);
 ////                            hashMap.put("username", username);
+
+
                             Map map = new HashMap();
                             map.put("firstname",name);
                             map.put("surname",name);
                             map.put("status", "tourist");
+                            map.put("gender", "");
+                            map.put("country", "");
+                            map.put("address", "");
+                            map.put("dayofbirth", "");
+                            map.put("phonenumber", "");
+                            map.put("jobposition", "");
+                            map.put("language", "");
                             reference.updateChildren(map);
                             Toast.makeText(RegisterActivity.this, "Successful Registration!",
                                     Toast.LENGTH_SHORT).show();

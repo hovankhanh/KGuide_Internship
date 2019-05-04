@@ -35,17 +35,17 @@ public class LoginActivity extends AppCompatActivity {
     DatabaseReference DBf;
     String currentUser;
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//
-//        // Automatic login
-//        if(mAuth.getCurrentUser() != null) {
-//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
-//    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // Automatic login
+        if(mAuth.getCurrentUser() != null) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 
 
     @Override
@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                                         editor.putString("user", status);
                                                         editor.commit();
-                                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                        Intent intent = new Intent(LoginActivity.this, EditProfileActivity.class);
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                         startActivity(intent);
                                                         Toast.makeText(LoginActivity.this, "Successful Login!", Toast.LENGTH_LONG).show();
@@ -139,6 +139,5 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 }

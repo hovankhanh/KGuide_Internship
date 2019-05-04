@@ -31,7 +31,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Save"
-                android:gravity="right" />
+                android:gravity="right"
+                android:onClick="Save"/>
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
@@ -82,6 +83,7 @@
         android:text="First name"/>
 
     <EditText
+        android:id="@+id/edt_firstname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name"
@@ -93,6 +95,7 @@
         android:text="Last name"/>
 
     <EditText
+        android:id="@+id/edt_lastname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Last name"
@@ -104,6 +107,7 @@
         android:text="Gender"/>
 
     <EditText
+        android:id="@+id/edt_gender"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Gender"
@@ -115,6 +119,7 @@
         android:text="Country"/>
 
     <EditText
+        android:id="@+id/edt_country"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Country"
@@ -126,9 +131,10 @@
         android:text="Address"/>
 
     <EditText
+        android:id="@+id/edt_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Addres"
+        android:hint="Address"
         android:textStyle="bold"
         android:textColor="#000000"/>
     <TextView
@@ -137,6 +143,7 @@
         android:text="Date of birth"/>
 
     <EditText
+        android:id="@+id/edt_dayofbirth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Date of birth"
@@ -148,6 +155,7 @@
         android:text="Phone number"/>
 
     <EditText
+        android:id="@+id/edt_phonenumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="phone number"
@@ -159,6 +167,7 @@
         android:text="Job position"/>
 
     <EditText
+        android:id="@+id/edt_jobposition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Job position"
@@ -170,6 +179,7 @@
         android:text="laguage"/>
 
     <EditText
+        android:id="@+id/edt_language"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Laguage"

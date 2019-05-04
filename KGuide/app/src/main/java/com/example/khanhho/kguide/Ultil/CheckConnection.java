@@ -14,11 +14,9 @@ public class CheckConnection {
         NetworkInfo[] netInfo = cm.getAllNetworkInfo();
         for (NetworkInfo ni : netInfo) {
             if (ni.getTypeName().equalsIgnoreCase("WIFI"))
-                if (ni.isConnected())
-                    haveConnectedWifi = true;
+                if (ni.isConnected()) haveConnectedWifi = true;
             if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
-                if (ni.isConnected())
-                    haveConnectedMobile = true;
+                if (ni.isConnected()) haveConnectedMobile = true;
         }
         return haveConnectedWifi || haveConnectedMobile;
     }
