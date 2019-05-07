@@ -5,7 +5,7 @@ public class Tourist {
     public String email;
 
     public Tourist() {
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+        // Default constructor required for calls to DataSnapshot.getValue(DraffTour.class)
     }
 
     public Tourist(String username, String email) {

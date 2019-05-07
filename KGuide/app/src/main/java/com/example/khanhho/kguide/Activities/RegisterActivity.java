@@ -95,6 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
                             currentUser = mAuth.getCurrentUser().getUid();
                             String name = edtName.getText().toString();
                             String surname = edtSurname.getText().toString();
+                            String email = edt_email.getText().toString();
 
                             reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser);
 
@@ -104,8 +105,9 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                             Map map = new HashMap();
-                            map.put("firstname",name);
-                            map.put("surname",name);
+                            map.put("email",email);
+                            map.put("name",name);
+                            map.put("surname",surname);
                             map.put("status", "tourist");
                             map.put("gender", "");
                             map.put("country", "");

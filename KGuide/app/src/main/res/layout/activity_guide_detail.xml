@@ -143,7 +143,7 @@
                         <!--android:layout_height="wrap_content"-->
                         <!--android:textColor="@android:color/black"-->
                         <!--android:textSize="15dp"-->
-                        <!--android:text="User Name"-->
+                        <!--android:text="DraffTour Name"-->
                         <!--android:id="@+id/tv_name"-->
                         <!--android:layout_toRightOf="@+id/img_avatar"-->
                         <!--android:layout_above="@+id/textView_population" />-->
@@ -206,7 +206,7 @@
                         <!--android:layout_height="wrap_content"-->
                         <!--android:textColor="@android:color/black"-->
                         <!--android:textSize="15dp"-->
-                        <!--android:text="User Name"-->
+                        <!--android:text="DraffTour Name"-->
                         <!--android:id="@+id/tv_name1"-->
                         <!--android:layout_toRightOf="@+id/img_avatar1"-->
                         <!--android:layout_above="@+id/textView_population1" />-->
@@ -272,7 +272,7 @@
                         <!--android:layout_height="wrap_content"-->
                         <!--android:textColor="@android:color/black"-->
                         <!--android:textSize="15dp"-->
-                        <!--android:text="User Name"-->
+                        <!--android:text="DraffTour Name"-->
                         <!--android:id="@+id/tv_name2"-->
                         <!--android:layout_toRightOf="@+id/img_avatar2"-->
                         <!--android:layout_above="@+id/textView_population2"/>-->
