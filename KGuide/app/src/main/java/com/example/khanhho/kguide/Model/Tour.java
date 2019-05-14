@@ -2,13 +2,24 @@ package com.example.khanhho.kguide.Model;
 
 public class Tour {
     private int imageTour;
-    private String nameTour;
-    private int priceTour;
+    private String description;
+    private String city;
+    private String language;
+    private String name;
+    private String topic;
+    private int price;
 
-    public Tour(int imageTour, String nameTour, int priceTour) {
+    public Tour() {
+    }
+
+    public Tour(int imageTour, String description, String city, String language, String name, String topic, int price) {
         this.imageTour = imageTour;
-        this.nameTour = nameTour;
-        this.priceTour = priceTour;
+        this.description = description;
+        this.city = city;
+        this.language = language;
+        this.name = name;
+        this.topic = topic;
+        this.price = price;
     }
 
     public int getImageTour() {
@@ -19,19 +30,51 @@ public class Tour {
         this.imageTour = imageTour;
     }
 
-    public String getNameTour() {
-        return nameTour;
+    public String getDescription() {
+        return description;
     }
 
-    public void setNameTour(String nameTour) {
-        this.nameTour = nameTour;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getPriceTour() {
-        return priceTour;
+    public String getCity() {
+        return city;
     }
 
-    public void setPriceTour(int priceTour) {
-        this.priceTour = priceTour;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

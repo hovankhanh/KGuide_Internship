@@ -2,6 +2,7 @@ package com.example.khanhho.kguide.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -38,9 +39,9 @@ public class RecycleTourAdapter extends RecyclerView.Adapter<RecycleTourAdapter.
     @Override
     public void onBindViewHolder(@NonNull ImageViewHoder viewHolder, int i) {
         final Tour tour = tourList.get(i);
-        viewHolder.imgImage.setImageResource(tour.getImageTour());
-        viewHolder.tvTourName.setText(tour.getNameTour());
-        viewHolder.tvPrice.setText(tour.getPriceTour()+" VND");
+        viewHolder.imgImage.setImageResource(R.drawable.vn);
+        viewHolder.tvTourName.setText(tour.getName());
+        viewHolder.tvPrice.setText(tour.getPrice()+" VND");
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

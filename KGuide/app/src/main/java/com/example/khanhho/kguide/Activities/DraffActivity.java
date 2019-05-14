@@ -1,5 +1,6 @@
 package com.example.khanhho.kguide.Activities;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,10 +15,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 public class DraffActivity extends AppCompatActivity {
-    FirebaseAuth mAuth;
-    DatabaseReference DBf;
-    String currentUser;
     TextView nhap;
     DraffTour draffTour;
 
@@ -30,16 +33,21 @@ public class DraffActivity extends AppCompatActivity {
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         DatabaseReference myRef = database.child("tour/");
-
-        myRef.child("tour").addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                draffTour = dataSnapshot.getValue(DraffTour.class);
-                nhap.setText(draffTour.getCity().toString());
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
+
+                    for (DataSnapshot abc : messageSnapshot.getChildren()) {
+                        draffTour = abc.getValue(DraffTour.class);
+                        Log.d("abc", draffTour.getCity());
+                    }
+                }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {}
+            public void onCancelled(DatabaseError databaseError) {
+            }
 
         });
     }
