@@ -84,25 +84,30 @@ public class LoginActivity extends AppCompatActivity {
                                         DBf.addValueEventListener(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                if (dataSnapshot.exists())
-                                                {
+                                                if (dataSnapshot.exists()) {
                                                     String status = dataSnapshot.getValue().toString();
-                                                    if(status.equals("guide")){
+                                                    if (status.equals("guide")) {
                                                         SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
                                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                                         editor.putString("user", status);
                                                         editor.commit();
                                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                         startActivity(intent);
 
-                                                    }else if (status.equals("tourist")){
+                                                    } else if (status.equals("newtourist")) {
                                                         SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
                                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                                         editor.putString("user", status);
                                                         editor.commit();
                                                         Intent intent = new Intent(LoginActivity.this, EditProfileActivity.class);
-                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                        startActivity(intent);
+                                                        Toast.makeText(LoginActivity.this, "Successful Login!", Toast.LENGTH_LONG).show();
+                                                    } else if (status.equals("tourist")) {
+                                                        SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+                                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                        editor.putString("user", status);
+                                                        editor.commit();
+                                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                                         startActivity(intent);
                                                         Toast.makeText(LoginActivity.this, "Successful Login!", Toast.LENGTH_LONG).show();
                                                     }
@@ -114,12 +119,6 @@ public class LoginActivity extends AppCompatActivity {
 
                                             }
                                         });
-
-//                                        Toast.makeText(LoginActivity.this, "Successful Login!" + currentUser,
-//                                                Toast.LENGTH_SHORT).show();
-//                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                        startActivity(intent);
 
                                     } else {
                                         Toast.makeText(LoginActivity.this, "Email or Username aren't correct",

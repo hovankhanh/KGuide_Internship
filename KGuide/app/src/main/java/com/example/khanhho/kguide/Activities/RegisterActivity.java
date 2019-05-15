@@ -108,7 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
                             map.put("email",email);
                             map.put("name",name);
                             map.put("surname",surname);
-                            map.put("status", "tourist");
+                            map.put("status", "newtourist");
                             map.put("gender", "");
                             map.put("country", "");
                             map.put("address", "");

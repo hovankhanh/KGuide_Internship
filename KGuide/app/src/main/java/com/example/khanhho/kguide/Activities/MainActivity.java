@@ -3,6 +3,7 @@ package com.example.khanhho.kguide.Activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -13,28 +14,42 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.khanhho.kguide.Adapter.GuideFragmentAdapter;
 import com.example.khanhho.kguide.Adapter.TouristFragmentAdapter;
+import com.example.khanhho.kguide.Model.Tourist;
 import com.example.khanhho.kguide.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
         private ViewPager nVPTourist;
         FirebaseAuth mAuth;
+        Tourist tourist;
+        String currentUser;
+        TextView tvUserName, tvStatus;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        nVPTourist = (ViewPager) findViewById(R.id.vp_tourist);
+        tvStatus = (TextView) findViewById(R.id.tv_status);
+        tvUserName = (TextView) findViewById(R.id.tv_username);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser().getUid();
         setSupportActionBar(toolbar);
-        Radiation();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -49,11 +64,20 @@ public class MainActivity extends AppCompatActivity
         }else {
             ViewTouristFragment();
         }
-    }
 
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference myRef = database.child("Users");
+        myRef.child(currentUser).addValueEventListener(new ValueEventListener() {
+                @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                tourist = dataSnapshot.getValue(Tourist.class);
+            }
 
-    public void Radiation(){
-        nVPTourist = (ViewPager) findViewById(R.id.vp_tourist);
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

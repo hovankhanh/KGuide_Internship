@@ -7,12 +7,17 @@
     tools:context=".Activities.DraffActivity"
     android:orientation="vertical">
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/nhap"
         android:text="khanhs"
         android:layout_gravity="center"
+        android:onClick="test"
         />
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/img_anh"/>
 
 </LinearLayout>

@@ -5,22 +5,29 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.khanhho.kguide.Model.Tour;
+import com.example.khanhho.kguide.Model.Tourist;
 import com.example.khanhho.kguide.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
 public class EditProfileActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference DBf;
+    Tourist tourist;
     String currentUser;
     public EditText edName, edSurname, edGender, edCountry, edLanguage, edDayOfBirth, edAddress, edJobPosition, edPhoneNumber;
 
@@ -41,13 +48,29 @@ public class EditProfileActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         DBf = FirebaseDatabase.getInstance().getReference();
+        currentUser = mAuth.getCurrentUser().getUid();
+
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference myRef = database.child("Users");
+        myRef.child(currentUser).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                tourist = dataSnapshot.getValue(Tourist.class);
+                edName.setText(tourist.getName());
+                edSurname.setText(tourist.getSurname());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     public void Save(View view) {
         UpdateInfoProfile();
-//        Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(intent);
     }
 
     private void UpdateInfoProfile() {
@@ -62,7 +85,11 @@ public class EditProfileActivity extends AppCompatActivity {
         String nPhoneNumber = edPhoneNumber.getText().toString();
 
 
-        if (TextUtils.isEmpty(nName)|| TextUtils.isEmpty(nSurname) ){
+        if (TextUtils.isEmpty(nName)|| TextUtils.isEmpty(nSurname)
+                || TextUtils.isEmpty(nGender) || TextUtils.isEmpty(nCountry)
+                || TextUtils.isEmpty(nLanguage) || TextUtils.isEmpty(nDayOfBirth)
+                || TextUtils.isEmpty(nAddress) || TextUtils.isEmpty(nJobPosition)
+                || TextUtils.isEmpty(nPhoneNumber)){
             Toast.makeText(this, "Please enter your information ...", Toast.LENGTH_SHORT).show();
         } else {
             HashMap<String,Object> profileMap = new HashMap<>();
@@ -75,6 +102,7 @@ public class EditProfileActivity extends AppCompatActivity {
             profileMap.put("address", nAddress);
             profileMap.put("jobposition", nJobPosition);
             profileMap.put("phonenumber", nPhoneNumber);
+            profileMap.put("status", "tourist");
             currentUser = mAuth.getCurrentUser().getUid();
             DBf.child("Users").child(currentUser).updateChildren(profileMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -90,7 +118,5 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
                     });
         }
-
-
     }
 }
