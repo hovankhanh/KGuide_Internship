@@ -1,8 +1,7 @@
 package com.example.khanhho.kguide.Activities;
 
+import android.content.ContentResolver;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,36 +9,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.khanhho.kguide.Model.DraffTour;
 import com.example.khanhho.kguide.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 public class DraffActivity extends AppCompatActivity {
-    TextView nhap;
-    ImageView imgAnh;
+    private TextView nhap;
+    private ImageView imgAnh;
     private StorageReference mStorageRef;
-    int Request_Code_Image = 123;
+    int Request_Code_Image = 1;
+    public Uri imageUri;
+    private StorageTask uploadTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,19 +50,51 @@ public class DraffActivity extends AppCompatActivity {
         startActivityForResult(intent, Request_Code_Image);
     }
 
+    public void save(View view) {
+        if (uploadTask != null && uploadTask.isInProgress()){
+            Toast.makeText(DraffActivity.this, "Uploading...",Toast.LENGTH_LONG).show();
+        }else {
+            fileUploader();
+        }
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == Request_Code_Image && resultCode == RESULT_OK && data != null){
-            Uri uri = data.getData();
-                try {
-                    InputStream inputStream = getContentResolver().openInputStream(uri);
-                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                    imgAnh.setImageBitmap(bitmap);
+            imageUri = data.getData();
+            imgAnh.setImageURI(imageUri);
 
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    private String getExtension(Uri uri){
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return  mimeTypeMap.getExtensionFromMimeType(cr.getType(uri));
+
+    }
+
+    private void fileUploader() {
+        StorageReference Ref = mStorageRef.child(System.currentTimeMillis()+"."+getExtension(imageUri));
+        uploadTask = Ref.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Get a URL to the uploaded content
+//                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        Toast.makeText(DraffActivity.this, "image uplaod succesfully", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                        // ...
+                    }
+                });
+
+    }
+
 }

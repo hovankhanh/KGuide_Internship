@@ -15,19 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "624269544337-tplrgdpubom8i56g9eae68ql82bc2go0.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.khanhho.kguide",
-            "certificate_hash": "46cb8257a9ce7f81696148c43b46de27967b8a07"
-          }
-        },
-        {
           "client_id": "624269544337-cdigg8u7eghrqc38ngsme28miv6qti6g.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.khanhho.kguide",
             "certificate_hash": "5284f6bcc683bb245f62d0965cf48201c2eb0859"
+          }
+        },
+        {
+          "client_id": "624269544337-tplrgdpubom8i56g9eae68ql82bc2go0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.khanhho.kguide",
+            "certificate_hash": "46cb8257a9ce7f81696148c43b46de27967b8a07"
           }
         },
         {
