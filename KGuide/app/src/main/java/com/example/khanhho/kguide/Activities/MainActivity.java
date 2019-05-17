@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,8 +43,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         nVPTourist = (ViewPager) findViewById(R.id.vp_tourist);
-        tvStatus = (TextView) findViewById(R.id.tv_status);
-        tvUserName = (TextView) findViewById(R.id.tv_username);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -57,6 +56,10 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerLayout = navigationView.getHeaderView(0);
+        tvUserName = (TextView) headerLayout.findViewById(R.id.tv_username);
+        tvStatus = (TextView) headerLayout.findViewById(R.id.tv_status);
+
         navigationView.setNavigationItemSelectedListener(this);
         SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
         if (sharedPreferences.getString("user", "").equals("guide")){
@@ -71,6 +74,8 @@ public class MainActivity extends AppCompatActivity
                 @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 tourist = dataSnapshot.getValue(Tourist.class);
+                    tvUserName.setText(tourist.getName()+" "+tourist.getSurname());
+                    tvStatus.setText(tourist.getStatus());
             }
 
             @Override

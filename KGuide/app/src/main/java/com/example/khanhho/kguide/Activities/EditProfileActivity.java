@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.khanhho.kguide.Model.Tour;
@@ -27,13 +28,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class EditProfileActivity extends AppCompatActivity {
    private FirebaseAuth mAuth;
    private DatabaseReference DBf;
    private Tourist tourist;
+   CircleImageView nAvatar;
     public Uri imageUri;
    private String currentUser;
-   private ImageView imgAvatar, imgIcon;
    private int Request_Code_Image = 1;
    private EditText edName, edSurname, edGender, edCountry, edLanguage, edDayOfBirth, edAddress, edJobPosition, edPhoneNumber;
 
@@ -42,8 +45,7 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        imgAvatar = (ImageView)findViewById(R.id.img_avatarEdit);
-        imgIcon = (ImageView)findViewById(R.id.icon_avatar);
+        nAvatar = (CircleImageView) findViewById(R.id.civ_avatar_edit);
         edName = (EditText)findViewById(R.id.edt_name);
         edSurname = (EditText)findViewById(R.id.edt_surname);
         edGender = (EditText)findViewById(R.id.edt_gender);
@@ -75,7 +77,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
             }
         });
-        imgAvatar.setOnClickListener(new View.OnClickListener() {
+        nAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
@@ -89,8 +91,7 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == Request_Code_Image && resultCode == RESULT_OK && data != null){
             imageUri = data.getData();
-            imgIcon.setVisibility(View.INVISIBLE);
-            imgAvatar.setImageURI(imageUri);
+            nAvatar.setImageURI(imageUri);
 
         }
         super.onActivityResult(requestCode, resultCode, data);
