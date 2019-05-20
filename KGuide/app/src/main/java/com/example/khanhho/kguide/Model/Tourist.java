@@ -13,8 +13,9 @@ public class Tourist {
     private String phonenumber;
     private String surname;
     private String status;
+    private String image;
 
-    public Tourist(String address, String country, String dayofbirth, String email, String gender, String jobposition, String language, String name, String phonenumber, String surname, String status) {
+    public Tourist(String address, String country, String dayofbirth, String email, String gender, String jobposition, String language, String name, String phonenumber, String surname, String status, String image) {
         this.address = address;
         this.country = country;
         this.dayofbirth = dayofbirth;
@@ -26,9 +27,18 @@ public class Tourist {
         this.phonenumber = phonenumber;
         this.surname = surname;
         this.status = status;
+        this.image = image;
     }
 
     public Tourist() {
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getAddress() {

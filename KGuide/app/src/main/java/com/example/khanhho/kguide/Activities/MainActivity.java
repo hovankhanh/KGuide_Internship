@@ -28,14 +28,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-        private ViewPager nVPTourist;
-        FirebaseAuth mAuth;
-        Tourist tourist;
-        String currentUser;
-        TextView tvUserName, tvStatus;
+    implements NavigationView.OnNavigationItemSelectedListener {
+    private ViewPager nVPTourist;
+    private FirebaseAuth mAuth;
+    private Tourist tourist;
+    private String currentUser;
+    private TextView tvUserName, tvStatus;
+    private CircleImageView civAvatar;
 
 
     @Override
@@ -59,6 +63,7 @@ public class MainActivity extends AppCompatActivity
         View headerLayout = navigationView.getHeaderView(0);
         tvUserName = (TextView) headerLayout.findViewById(R.id.tv_username);
         tvStatus = (TextView) headerLayout.findViewById(R.id.tv_status);
+        civAvatar = (CircleImageView) headerLayout.findViewById(R.id.civ_avatar);
 
         navigationView.setNavigationItemSelectedListener(this);
         SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
@@ -76,6 +81,10 @@ public class MainActivity extends AppCompatActivity
                 tourist = dataSnapshot.getValue(Tourist.class);
                     tvUserName.setText(tourist.getName()+" "+tourist.getSurname());
                     tvStatus.setText(tourist.getStatus());
+                    if (!tourist.getImage().toString().equals("")) {
+                        String getAvatarImage = tourist.getImage().toString();
+                        Picasso.get().load(getAvatarImage).into(civAvatar);
+                    }
             }
 
             @Override

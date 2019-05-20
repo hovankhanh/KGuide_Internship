@@ -116,6 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
                             map.put("phonenumber", "");
                             map.put("jobposition", "");
                             map.put("language", "");
+                            map.put("image", "");
                             reference.updateChildren(map);
                             Toast.makeText(RegisterActivity.this, "Successful Registration!",
                                     Toast.LENGTH_SHORT).show();

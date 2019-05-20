@@ -1,17 +1,27 @@
 package com.example.khanhho.kguide.Activities;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.khanhho.kguide.Model.Tour;
@@ -25,7 +35,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -35,9 +50,12 @@ public class EditProfileActivity extends AppCompatActivity {
    private DatabaseReference DBf;
    private Tourist tourist;
    CircleImageView nAvatar;
-    public Uri imageUri;
+   private StorageReference UserProfileImageRef;
+   public Uri imageUri;
    private String currentUser;
-   private int Request_Code_Image = 1;
+    private static final int GalleryPick = 1;
+   private ProgressDialog loaddingBar;
+
    private EditText edName, edSurname, edGender, edCountry, edLanguage, edDayOfBirth, edAddress, edJobPosition, edPhoneNumber;
 
     @Override
@@ -55,50 +73,97 @@ public class EditProfileActivity extends AppCompatActivity {
         edAddress = (EditText)findViewById(R.id.edt_address);
         edJobPosition = (EditText)findViewById(R.id.edt_jobposition);
         edPhoneNumber = (EditText)findViewById(R.id.edt_phonenumber);
+        loaddingBar = new ProgressDialog(this);
 
-        mAuth = FirebaseAuth.getInstance();
+        UserProfileImageRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
         DBf = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser().getUid();
+        GetUserInfo();
 
-        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference myRef = database.child("Users");
-
-        myRef.child(currentUser).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                tourist = dataSnapshot.getValue(Tourist.class);
-                edName.setText(tourist.getName());
-                edSurname.setText(tourist.getSurname());
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
         nAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, Request_Code_Image);
+                Intent galleryIntent = new Intent();
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, GalleryPick);
             }
         });
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == Request_Code_Image && resultCode == RESULT_OK && data != null){
-            imageUri = data.getData();
-            nAvatar.setImageURI(imageUri);
-
-        }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        try {
+            if (resultCode == RESULT_OK) {
+                loaddingBar.setTitle("Set Profile Image");
+                loaddingBar.setMessage("Pleas wait, your profile image is updating ...");
+                loaddingBar.setCanceledOnTouchOutside(false);
+                loaddingBar.show();
+                if (requestCode == GalleryPick) {
+                    Uri selectedImageUri = data.getData();
+                    final String path = getPathFromURI(selectedImageUri);
+                    if (path != null) {
+                        File f = new File(path);
+                        selectedImageUri = Uri.fromFile(f);
+                    }
+                    final StorageReference filePath = UserProfileImageRef.child(currentUser+".jpg");
+                    filePath.putFile(selectedImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if(task.isSuccessful()){
+                                filePath.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> task) {
+                                        final String downloadUrl = task.getResult().toString();
+                                        DBf.child("Users").child(currentUser).child("image")
+                                                .setValue(downloadUrl)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if(task.isSuccessful()){
+                                                            Toast.makeText(EditProfileActivity.this,"Up ok",Toast.LENGTH_SHORT).show();
+                                                            loaddingBar.dismiss();
+                                                        }else {
+                                                            String message = task.getException().toString();
+                                                            Toast.makeText(EditProfileActivity.this,""+message,Toast.LENGTH_SHORT).show();
+                                                            loaddingBar.dismiss();
+                                                        }
+                                                    }
+                                                });
+                                    }
+                                });
+                                loaddingBar.dismiss();
+                            } else {
+                                String message = task.getException().toString();
+                                Toast.makeText(EditProfileActivity.this,""+message,Toast.LENGTH_SHORT).show();
+                                loaddingBar.dismiss();
+                            }
+                        }
+                    });
+
+                }
+            }
+        } catch (Exception e) {
+            Log.e("FileSelectorActivity", "File select error", e);
+        }
     }
 
     public void Save(View view) {
         UpdateInfoProfile();
+    }
+
+    public String getPathFromURI(Uri contentUri) {
+        String res = null;
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
+        if (cursor.moveToFirst()) {
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            res = cursor.getString(column_index);
+        }
+        cursor.close();
+        return res;
     }
 
     private void UpdateInfoProfile() {
@@ -111,6 +176,7 @@ public class EditProfileActivity extends AppCompatActivity {
         String nAddress = edAddress.getText().toString();
         String nJobPosition = edJobPosition.getText().toString();
         String nPhoneNumber = edPhoneNumber.getText().toString();
+        loaddingBar = new ProgressDialog(this);
 
 
         if (TextUtils.isEmpty(nName)|| TextUtils.isEmpty(nSurname)
@@ -138,13 +204,54 @@ public class EditProfileActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
                                 Toast.makeText(EditProfileActivity.this,"Update info successfully ...", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
+                                startActivity(intent);
                             }else{
                                 String message = task.getException().toString();
                                 Toast.makeText(EditProfileActivity.this,"Error: "+message, Toast.LENGTH_SHORT).show();
-
                             }
                         }
                     });
         }
+
+    }
+
+    private void GetUserInfo() {
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference myRef = database.child("Users");
+
+        myRef.child(currentUser).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                tourist = dataSnapshot.getValue(Tourist.class);
+                edName.setText(tourist.getName().toString());
+                edSurname.setText(tourist.getSurname().toString());
+                if (tourist.getImage().toString() != null) {
+                    String getAvatarImage = tourist.getImage().toString();
+                    Picasso.get().load(getAvatarImage).into(nAvatar);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void alertView( String message ) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle( "Confirm" )
+                .setMessage(message)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialoginterface, int i) {
+
+                    }
+                }).setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).show();
     }
 }
