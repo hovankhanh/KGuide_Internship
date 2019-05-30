@@ -56,11 +56,11 @@ public class GridGuideAdapter extends BaseAdapter {
         }
 
         Guide guide = this.listData.get(position);
-        holder.nameGuide.setText(guide.getNameGuide());
+        holder.nameGuide.setText(guide.getName());
 
-        int imageId = this.getMipmapResIdByName("@drawable/"+guide.getAvarta());
+//        int imageId = this.getMipmapResIdByName("@drawable/"+guide.getAvarta());
 
-        holder.avarta.setImageResource(imageId);
+//        holder.avarta.setImageResource(imageId);
         holder.star.setRating(guide.getStar());
 
         return convertView;

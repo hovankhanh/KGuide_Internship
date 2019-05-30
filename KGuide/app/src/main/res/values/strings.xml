@@ -39,4 +39,12 @@ No worries, Brand Ninja is here to help your reach your objectives in the highly
 Social Media advertising in Vietnam is CHEAP, often less than 4 USD to reach 1000 PEOPLE. Can print advertising beat that
 </string>
     <string name="home">Home</string>
+    <string-array name="province">
+        <item>An Giang</item>
+        <item>Bà Rịa - Vũng Tàu</item>
+        <item>Bắc Giang</item>
+        <item>Bắc Kạn</item>
+        <item>Bạc Liêu</item>
+    </string-array>
+
 </resources>

@@ -12,10 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.example.khanhho.kguide.Activities.TourDetailActivity;
 import com.example.khanhho.kguide.Adapter.RecycleTourAdapter;
-import com.example.khanhho.kguide.Model.DraffTour;
 import com.example.khanhho.kguide.Model.Tour;
 import com.example.khanhho.kguide.R;
 import com.example.khanhho.kguide.Ultil.CheckConnection;
@@ -24,7 +21,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,9 +48,7 @@ public class TourFragment extends Fragment {
         }else {
             CheckConnection.ShowToast_Short(getContext(),"");
         }
-
         return nRootView;
-
     }
 
     private void saveTourData() {
@@ -64,7 +58,6 @@ public class TourFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
-
                     for (DataSnapshot abc : messageSnapshot.getChildren()) {
                         tour = abc.getValue(Tour.class);
                         tourList.add(tour);
@@ -80,6 +73,4 @@ public class TourFragment extends Fragment {
 
         });
     }
-
-
 }
