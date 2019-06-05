@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.khanhho.kguide.Model.Guide;
 import com.example.khanhho.kguide.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -56,11 +57,10 @@ public class GridGuideAdapter extends BaseAdapter {
         }
 
         Guide guide = this.listData.get(position);
-        holder.nameGuide.setText(guide.getName());
 
-//        int imageId = this.getMipmapResIdByName("@drawable/"+guide.getAvarta());
-
-//        holder.avarta.setImageResource(imageId);
+        holder.nameGuide.setText(guide.getName().toString());
+        String getAvatarImage = guide.getImage().toString();
+        Picasso.get().load(getAvatarImage).into(holder.avarta);
         holder.star.setRating(guide.getStar());
 
         return convertView;

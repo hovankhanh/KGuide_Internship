@@ -1,7 +1,7 @@
 package com.example.khanhho.kguide.Model;
 
 public class Tour {
-    private int imageTour;
+    private String imageTour;
     private String description;
     private String city;
     private String language;
@@ -12,7 +12,7 @@ public class Tour {
     public Tour() {
     }
 
-    public Tour(int imageTour, String description, String city, String language, String name, String topic, int price) {
+    public Tour(String imageTour, String description, String city, String language, String name, String topic, int price) {
         this.imageTour = imageTour;
         this.description = description;
         this.city = city;
@@ -22,11 +22,11 @@ public class Tour {
         this.price = price;
     }
 
-    public int getImageTour() {
+    public String getImageTour() {
         return imageTour;
     }
 
-    public void setImageTour(int imageTour) {
+    public void setImageTour(String imageTour) {
         this.imageTour = imageTour;
     }
 
