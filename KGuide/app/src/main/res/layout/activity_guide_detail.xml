@@ -4,10 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.GuideDetailActivity"
-    android:orientation="vertical"
-    android:background="#F3DFDDDD">
-
+    android:orientation="vertical">
     <android.support.v7.widget.Toolbar
         app:titleTextColor="#DA0909"
         app:title="Guide's name"
@@ -16,308 +13,89 @@
         android:layout_height="?attr/actionBarSize"
         android:background="#00E7E0E0">
     </android.support.v7.widget.Toolbar>
-
-            <ImageView
-                android:layout_gravity="center_horizontal"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+        <LinearLayout
+            android:background="#15B4B8"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="vertical">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_marginTop="5dp"
+                android:id="@+id/civ_avatar_guide"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:text="Avatar"
-                android:background="@drawable/circle_avatar" />
-            <TextView
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Guide's name"
-                android:textColor="@android:color/black"
+                android:layout_centerInParent="true"
+                android:src="@drawable/icon_avatar_editprofile"
                 android:layout_gravity="center_horizontal"/>
-            <RatingBar
+            <TextView
+                android:id="@+id/tv_guide_name"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
-                style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Wiliam Snoe"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="21sp"/>
+            <RatingBar
+                android:id="@+id/rb_star_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                android:rating="3"
+                android:theme="@style/RatingBar"
+                style="?attr/ratingBarStyleSmall"
                 android:numStars="5"
                 android:stepSize="1.0"
-                android:rating="3.0"
-                android:layout_marginBottom="20dp"/>
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="170dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp">
 
-    <android.support.design.widget.TabLayout
+            <LinearLayout
+                android:background="#F7EEEE"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <android.support.design.widget.TabLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tablayout"
+                        android:minHeight="?attr/actionBarSize"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tablayout"
-        android:background="@drawable/circle_login_button"
-        android:minHeight="?attr/actionBarSize">
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingLeft="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    </android.support.design.widget.TabLayout>
-
-    <android.support.v4.view.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/vp_tourist">
-    </android.support.v4.view.ViewPager>
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="350dp"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="vertical"-->
-                <!--android:layout_marginTop="10dp">-->
-                <!--<TextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="Tours:"-->
-                    <!--android:layout_marginBottom="10dp"/>-->
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="70dp"-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:background="@drawable/circle_background_register">-->
-                    <!--<ImageView-->
-                        <!--android:layout_marginLeft="10dp"-->
-                        <!--android:layout_gravity="center_vertical"-->
-                        <!--android:layout_width="60dp"-->
-                        <!--android:layout_height="60dp"-->
-                        <!--android:text="Avatar"-->
-                        <!--android:background="@drawable/circle_avatar" />-->
-                    <!--<TextView-->
-                        <!--android:layout_marginLeft="10dp"-->
-                        <!--android:gravity="center_vertical"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:text="name's Tours"/>-->
-
-                <!--</LinearLayout>-->
-                <!--<LinearLayout-->
-                    <!--android:layout_width="350dp"-->
-                    <!--android:layout_gravity="center_horizontal"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="vertical"-->
-                    <!--android:layout_marginTop="10dp">-->
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="70dp"-->
-                        <!--android:orientation="horizontal"-->
-                        <!--android:background="@drawable/circle_background_register">-->
-                        <!--<ImageView-->
-                            <!--android:layout_marginLeft="10dp"-->
-                            <!--android:layout_gravity="center_vertical"-->
-                            <!--android:layout_width="60dp"-->
-                            <!--android:layout_height="60dp"-->
-                            <!--android:text="Avatar"-->
-                            <!--android:background="@drawable/circle_avatar" />-->
-                        <!--<TextView-->
-                            <!--android:layout_marginLeft="10dp"-->
-                            <!--android:gravity="center_vertical"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="match_parent"-->
-                            <!--android:text="name's Tours"/>-->
-
-                    <!--</LinearLayout>-->
-
-                <!--</LinearLayout>-->
-                <!--<TextView-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="Ratting"/>-->
-                <!--<View-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="0.1dp"-->
-                    <!--android:background="@android:color/black" />-->
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content">-->
-
-                    <!--<ImageView-->
-                        <!--android:layout_width="64dp"-->
-                        <!--android:layout_height="64dp"-->
-                        <!--android:id="@+id/img_avatar"-->
-
-                        <!--android:layout_marginLeft="5dp"-->
-                        <!--android:layout_marginRight="5dp"-->
-                        <!--android:layout_marginTop="5dp"-->
-                        <!--android:background="@drawable/circle_avatar"/>-->
-
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:textColor="@android:color/black"-->
-                        <!--android:textSize="15dp"-->
-                        <!--android:text="DraffTour Name"-->
-                        <!--android:id="@+id/tv_name"-->
-                        <!--android:layout_toRightOf="@+id/img_avatar"-->
-                        <!--android:layout_above="@+id/textView_population" />-->
-
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="11:20 Apr 21,2019"-->
-                        <!--android:id="@+id/textView_population"-->
-                        <!--android:layout_alignBottom="@+id/img_avatar"-->
-                        <!--android:layout_alignLeft="@+id/tv_name"-->
-                        <!--android:layout_alignStart="@+id/tv_name"-->
-                        <!--android:layout_margin="5dp" />-->
-                <!--</RelativeLayout>-->
-                <!--<LinearLayout-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="horizontal">-->
-                    <!--<TextView-->
-                        <!--android:layout_width="250dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="conttenconttenconttenconttenconttenconttenconttencontten"-->
-                        <!--android:layout_marginLeft="30dp"/>-->
-                    <!--<RatingBar-->
-                        <!--android:layout_gravity="right"-->
-                        <!--style="?android:attr/ratingBarStyleSmall"-->
-                        <!--android:id="@+id/rtb_star"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:numStars="5"-->
-                        <!--android:stepSize="1.0"-->
-                        <!--android:rating="3.0"-->
-                        <!--android:layout_marginBottom="20dp"-->
-                        <!--android:layout_marginLeft="10dp"-->
-                        <!--/>-->
-
-                <!--</LinearLayout>-->
-
-                <!--<View-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="0.1dp"-->
-                    <!--android:background="@android:color/black" />-->
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content">-->
-
-                    <!--<ImageView-->
-                        <!--android:layout_width="64dp"-->
-                        <!--android:layout_height="64dp"-->
-                        <!--android:id="@+id/img_avatar1"-->
-                        <!--android:layout_marginLeft="5dp"-->
-                        <!--android:layout_marginRight="5dp"-->
-                        <!--android:layout_marginTop="5dp"-->
-                        <!--android:background="@drawable/circle_avatar"/>-->
-
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:textColor="@android:color/black"-->
-                        <!--android:textSize="15dp"-->
-                        <!--android:text="DraffTour Name"-->
-                        <!--android:id="@+id/tv_name1"-->
-                        <!--android:layout_toRightOf="@+id/img_avatar1"-->
-                        <!--android:layout_above="@+id/textView_population1" />-->
-
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="11:20 Apr 21,2019"-->
-                        <!--android:id="@+id/textView_population1"-->
-                        <!--android:layout_alignBottom="@+id/img_avatar1"-->
-                        <!--android:layout_alignLeft="@+id/tv_name1"-->
-                        <!--android:layout_alignStart="@+id/tv_name1"-->
-                        <!--android:layout_margin="5dp" />-->
-                <!--</RelativeLayout>-->
-                <!--<LinearLayout-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="horizontal">-->
-                    <!--<TextView-->
-                        <!--android:layout_width="250dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="conttenconttenconttenconttenconttenconttenconttencontten"-->
-                        <!--android:layout_marginLeft="30dp"/>-->
-                    <!--<RatingBar-->
-                        <!--android:layout_gravity="right"-->
-                        <!--style="?android:attr/ratingBarStyleSmall"-->
-                        <!--android:id="@+id/rtb_star1"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:numStars="5"-->
-                        <!--android:stepSize="1.0"-->
-                        <!--android:rating="3.0"-->
-                        <!--android:layout_marginBottom="20dp"-->
-                        <!--android:layout_marginLeft="10dp"-->
-                        <!--/>-->
-
-                <!--</LinearLayout>-->
-
-                <!--<View-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="0.1dp"-->
-                    <!--android:background="@android:color/black" />-->
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content">-->
-
-                    <!--<ImageView-->
-                        <!--android:layout_width="64dp"-->
-                        <!--android:layout_height="64dp"-->
-                        <!--android:id="@+id/img_avatar2"-->
-                        <!--android:layout_alignParentTop="true"-->
-                        <!--android:layout_alignParentLeft="true"-->
-                        <!--android:layout_alignParentStart="true"-->
-                        <!--android:layout_marginLeft="5dp"-->
-                        <!--android:layout_marginRight="5dp"-->
-                        <!--android:layout_marginTop="5dp"-->
-                        <!--android:background="@drawable/circle_avatar"/>-->
-
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:textColor="@android:color/black"-->
-                        <!--android:textSize="15dp"-->
-                        <!--android:text="DraffTour Name"-->
-                        <!--android:id="@+id/tv_name2"-->
-                        <!--android:layout_toRightOf="@+id/img_avatar2"-->
-                        <!--android:layout_above="@+id/textView_population2"/>-->
-
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="11:20 Apr 21,2019"-->
-                        <!--android:id="@+id/textView_population2"-->
-                        <!--android:layout_alignBottom="@+id/img_avatar2"-->
-                        <!--android:layout_alignLeft="@+id/tv_name2"-->
-                        <!--android:layout_alignStart="@+id/tv_name2"-->
-                        <!--android:layout_margin="5dp" />-->
-                <!--</RelativeLayout>-->
-                <!--<LinearLayout-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="horizontal">-->
-                    <!--<TextView-->
-                        <!--android:layout_width="250dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="conttenconttenconttenconttenconttenconttenconttencontten"-->
-                        <!--android:layout_marginLeft="30dp"/>-->
-                    <!--<RatingBar-->
-                        <!--android:layout_gravity="right"-->
-                        <!--style="?android:attr/ratingBarStyleSmall"-->
-                        <!--android:id="@+id/rtb_star2"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:numStars="5"-->
-                        <!--android:stepSize="1.0"-->
-                        <!--android:rating="3.0"-->
-                        <!--android:layout_marginBottom="20dp"-->
-                        <!--android:layout_marginLeft="10dp"-->
-                        <!--/>-->
-                <!--</LinearLayout>-->
-
-                <!--<View-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="0.1dp"-->
-                    <!--android:background="@android:color/black"/>-->
-            <!--</LinearLayout>-->
-        <!--</LinearLayout>-->
-    <!--</ScrollView>-->
-
+            <android.support.v4.view.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/vp_tourist">
+            </android.support.v4.view.ViewPager>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

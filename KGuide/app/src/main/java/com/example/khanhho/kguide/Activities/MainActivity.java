@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity
     private String currentUser;
     private TextView tvUserName, tvStatus;
     private CircleImageView civAvatar;
+    private LinearLayout lnProfile;
 
 
     @Override
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity
         tvUserName = (TextView) headerLayout.findViewById(R.id.tv_username);
         tvStatus = (TextView) headerLayout.findViewById(R.id.tv_status);
         civAvatar = (CircleImageView) headerLayout.findViewById(R.id.civ_avatar);
+        lnProfile = (LinearLayout) headerLayout.findViewById(R.id.ln_profile);
 
         navigationView.setNavigationItemSelectedListener(this);
         SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
@@ -90,6 +93,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+        lnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent login = new Intent(MainActivity.this, TouristProfileActivity.class);
+                startActivity(login);
             }
         });
     }
@@ -129,7 +139,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            Intent login = new Intent(this, TourDetailActivity.class);
+            Intent login = new Intent(this, TouristProfileActivity.class);
             startActivity(login);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {

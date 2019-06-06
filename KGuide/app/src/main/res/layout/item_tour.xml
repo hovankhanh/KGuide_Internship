@@ -25,7 +25,8 @@
             android:text="Image 10"
             android:id="@+id/tv_name_tour"
             android:textStyle="bold"
-            android:textColor="#FFF"/>
+            android:textColor="#FFF"
+            android:layout_marginLeft="5dp"/>
         <TextView
             android:id="@+id/tv_price"
             android:layout_width="match_parent"

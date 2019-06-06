@@ -2,7 +2,6 @@ package com.example.khanhho.kguide.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import com.example.khanhho.kguide.Activities.TourDetailActivity;
 import com.example.khanhho.kguide.Model.Tour;
 import com.example.khanhho.kguide.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -39,7 +39,12 @@ public class RecycleTourAdapter extends RecyclerView.Adapter<RecycleTourAdapter.
     @Override
     public void onBindViewHolder(@NonNull ImageViewHoder viewHolder, int i) {
         final Tour tour = tourList.get(i);
-        viewHolder.imgImage.setImageResource(R.drawable.vn);
+        if (tour.getImageTour() != null){
+            String getAvatarImage = tour.getImageTour().toString();
+            Picasso.get().load(getAvatarImage).into(viewHolder.imgImage);
+        }else {
+            viewHolder.imgImage.setImageResource(R.drawable.vn);
+        }
         viewHolder.tvTourName.setText(tour.getName());
         viewHolder.tvPrice.setText(tour.getPrice()+" VND");
 

@@ -217,7 +217,8 @@ public class EditProfileActivity extends AppCompatActivity {
                 tourist = dataSnapshot.getValue(Tourist.class);
                 edName.setText(tourist.getName().toString());
                 edSurname.setText(tourist.getSurname().toString());
-                if (tourist.getImage().toString() != null) {
+
+                if (tourist.getImage() != null) {
                     String getAvatarImage = tourist.getImage().toString();
                     Picasso.get().load(getAvatarImage).into(nAvatar);
                 }

@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.khanhho.kguide.Model.Tour;
@@ -14,12 +13,14 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class MytourAdapter extends BaseAdapter {
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class TourFragmentAdapter extends BaseAdapter {
     private List<Tour> listData;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public MytourAdapter(Context context, List<Tour> listData) {
+    public TourFragmentAdapter(Context context, List<Tour> listData) {
         this.context = context;
         this.listData = listData;
         layoutInflater = LayoutInflater.from(context);
@@ -44,27 +45,25 @@ public class MytourAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.item_my_tour, null);
+            convertView = layoutInflater.inflate(R.layout.item_tour_fragment, null);
             holder = new ViewHolder();
-            holder.imgMyTour = (ImageView) convertView.findViewById(R.id.img_image_mytour);
-            holder.tvNameMyTour = (TextView) convertView.findViewById(R.id.tv_name_mytour);
+            holder.imgTour = (CircleImageView) convertView.findViewById(R.id.civ_image_tour);
+            holder.tvNameTour = (TextView) convertView.findViewById(R.id.tv_tour_name);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         Tour tour = this.listData.get(position);
-        holder.tvNameMyTour.setText(tour.getName().toString());
+        holder.tvNameTour.setText(tour.getName().toString());
         String getAvatarImage = tour.getImageTour().toString();
-        Picasso.get().load(getAvatarImage).into(holder.imgMyTour);
-
-
+        Picasso.get().load(getAvatarImage).into(holder.imgTour);
 
         return convertView;
     }
 
     static class ViewHolder {
-        ImageView imgMyTour;
-        TextView tvNameMyTour;
+        CircleImageView imgTour;
+        TextView tvNameTour;
     }
 }

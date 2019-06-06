@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.AddTourActivity"></activity>
+        <activity android:name=".Activities.TouristProfileActivity"></activity>
+        <activity android:name=".Activities.AddTourActivity" />
         <activity android:name=".Activities.DraffActivity" />
         <activity android:name=".Activities.MyTourTouristActivity" />
         <activity android:name=".Activities.HistoryActivity" />
