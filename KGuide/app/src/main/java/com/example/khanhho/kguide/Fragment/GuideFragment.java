@@ -33,6 +33,7 @@ public class GuideFragment extends Fragment {
     private Guide guide;
     private GridGuideAdapter adapter;
     private List<Guide> guideList;
+    private List<String> keyList;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,7 +43,6 @@ public class GuideFragment extends Fragment {
         adapter = new GridGuideAdapter(getContext(), guideList);
         gridView.setAdapter(adapter);
 
-
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -51,8 +51,10 @@ public class GuideFragment extends Fragment {
                 Guide country = (Guide) o;
                 Toast.makeText(getContext(), "Selected :"
                         + " " + country, Toast.LENGTH_LONG).show();
-                Intent login = new Intent(getContext(), GuideDetailActivity.class);
-                startActivity(login);
+
+                Intent mIntent = new Intent(getContext(), GuideDetailActivity.class);
+                mIntent.putExtra("key",keyList.get(position));
+                startActivity(mIntent);
             }
         });
         return nRootView;
@@ -60,6 +62,7 @@ public class GuideFragment extends Fragment {
 
     private  List<Guide> getListData() {
         final List<Guide> list = new ArrayList<Guide>();
+        keyList = new ArrayList<>();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser().getUid();
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -73,6 +76,7 @@ public class GuideFragment extends Fragment {
                     if (status.equals("guide")) {
                         guide = messageSnapshot.getValue(Guide.class);
                         list.add(guide);
+                        keyList.add(messageSnapshot.getKey());
                     }
                 }
                 adapter.notifyDataSetChanged();

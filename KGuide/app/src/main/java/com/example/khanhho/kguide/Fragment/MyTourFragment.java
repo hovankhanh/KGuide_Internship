@@ -1,5 +1,6 @@
 package com.example.khanhho.kguide.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.example.khanhho.kguide.Activities.TourDetailActivity;
 import com.example.khanhho.kguide.Adapter.MytourAdapter;
 import com.example.khanhho.kguide.Model.Tour;
 import com.example.khanhho.kguide.R;
@@ -46,9 +47,8 @@ public class MyTourFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                Object o = listView.getItemAtPosition(position);
-                Tour tour = (Tour) o;
-                Toast.makeText(getContext(), "Selected :" + " " + tour, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getContext(), TourDetailActivity.class);
+                startActivity(intent);
             }
         });
         return nRootView;

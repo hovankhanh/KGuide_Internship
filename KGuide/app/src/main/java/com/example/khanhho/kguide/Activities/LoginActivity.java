@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
 
         // Automatic login
-        if(mAuth.getCurrentUser() != null) {
+        if (mAuth.getCurrentUser() != null) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -55,81 +56,38 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-
         edt_email = findViewById(R.id.email);
         edt_password = findViewById(R.id.password);
         btn_login = findViewById(R.id.btn_login);
         link_login = findViewById(R.id.link_login);
 
+        edt_password.setOnKeyListener(new View.OnKeyListener()
+        {
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+                            btnClick();
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
+
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String txt_email = edt_email.getText().toString();
-                String txt_password = edt_password.getText().toString();
 
-                if (TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)) {
-                    Toast.makeText(LoginActivity.this, "All fields are required",
-                            Toast.LENGTH_SHORT).show();
-
-                } else {
-                    mAuth.signInWithEmailAndPassword(txt_email, txt_password)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-
-//                                      read id of user
-                                        currentUser = mAuth.getCurrentUser().getUid();
-                                        DBf = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser).child("status");
-                                        DBf.addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                if (dataSnapshot.exists()) {
-                                                    String status = dataSnapshot.getValue().toString();
-                                                    if (status.equals("guide")) {
-                                                        SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
-                                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                                        editor.putString("user", status);
-                                                        editor.commit();
-                                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                                        startActivity(intent);
-
-                                                    } else if (status.equals("newtourist")) {
-                                                        SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
-                                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                                        editor.putString("user", status);
-                                                        editor.commit();
-                                                        Intent intent = new Intent(LoginActivity.this, EditProfileActivity.class);
-                                                        startActivity(intent);
-                                                        Toast.makeText(LoginActivity.this, "Successful Login!", Toast.LENGTH_LONG).show();
-                                                    } else if (status.equals("tourist")) {
-                                                        SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
-                                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                                        editor.putString("user", status);
-                                                        editor.commit();
-                                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                                        startActivity(intent);
-                                                        Toast.makeText(LoginActivity.this, "Successful Login!", Toast.LENGTH_LONG).show();
-                                                    }
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                            }
-                                        });
-
-                                    } else {
-                                        Toast.makeText(LoginActivity.this, "Email or Username aren't correct",
-                                                Toast.LENGTH_SHORT).show();
-
-                                    }
-                                }});
-                            }
-
-                        }
-                    });
+                btnClick();
+            }
+        });
 
         link_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,5 +96,72 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    void btnClick() {
+        String txt_email = edt_email.getText().toString();
+        String txt_password = edt_password.getText().toString();
+
+        if (TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)) {
+            Toast.makeText(LoginActivity.this, "All fields are required",
+                    Toast.LENGTH_SHORT).show();
+
+        } else {
+            mAuth.signInWithEmailAndPassword(txt_email, txt_password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+
+//                                      read id of user
+                                currentUser = mAuth.getCurrentUser().getUid();
+                                DBf = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser).child("status");
+                                DBf.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.exists()) {
+                                            String status = dataSnapshot.getValue().toString();
+                                            if (status.equals("guide")) {
+                                                SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+                                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                editor.putString("user", status);
+                                                editor.commit();
+                                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                startActivity(intent);
+
+                                            } else if (status.equals("newtourist")) {
+                                                SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+                                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                editor.putString("user", status);
+                                                editor.commit();
+                                                Intent intent = new Intent(LoginActivity.this, EditProfileActivity.class);
+                                                startActivity(intent);
+                                                Toast.makeText(LoginActivity.this, "Successful Login!", Toast.LENGTH_LONG).show();
+                                            } else if (status.equals("tourist")) {
+                                                SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+                                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                editor.putString("user", status);
+                                                editor.commit();
+                                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                startActivity(intent);
+                                                Toast.makeText(LoginActivity.this, "Successful Login!", Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Email or Username aren't correct",
+                                        Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    });
+        }
     }
 }

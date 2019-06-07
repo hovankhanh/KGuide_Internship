@@ -20,9 +20,13 @@ import java.util.List;
 public class RecycleTourAdapter extends RecyclerView.Adapter<RecycleTourAdapter.ImageViewHoder>{
 
     private List<Tour> tourList;
-    public RecycleTourAdapter(List<Tour> tourList, Context context){
+    private List<String> mKeyList;
+    private List<String> mIdList;
+    public RecycleTourAdapter(List<Tour> tourList,List<String> keyList, List<String> idList,  Context context){
         this.tourList = tourList;
         this.context = context;
+        this.mKeyList = keyList;
+        this.mIdList = idList;
     }
     Context context;
 
@@ -37,14 +41,17 @@ public class RecycleTourAdapter extends RecyclerView.Adapter<RecycleTourAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ImageViewHoder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ImageViewHoder viewHolder,  int i) {
         final Tour tour = tourList.get(i);
+        final int position = i;
+
         if (tour.getImageTour() != null){
             String getAvatarImage = tour.getImageTour().toString();
             Picasso.get().load(getAvatarImage).into(viewHolder.imgImage);
         }else {
             viewHolder.imgImage.setImageResource(R.drawable.vn);
         }
+
         viewHolder.tvTourName.setText(tour.getName());
         viewHolder.tvPrice.setText(tour.getPrice()+" VND");
 
@@ -52,6 +59,8 @@ public class RecycleTourAdapter extends RecyclerView.Adapter<RecycleTourAdapter.
             @Override
             public void onClick(View v) {
                 Intent tourDetail = new Intent(context, TourDetailActivity.class);
+                tourDetail.putExtra("key",mKeyList.get(position));
+                tourDetail.putExtra("id",mIdList.get(position));
                 context.startActivity(tourDetail);
             }
         });

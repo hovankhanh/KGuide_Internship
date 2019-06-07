@@ -1,6 +1,5 @@
 package com.example.khanhho.kguide.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.example.khanhho.kguide.Adapter.RecycleTourAdapter;
 import com.example.khanhho.kguide.Model.Tour;
 import com.example.khanhho.kguide.R;
@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,8 @@ public class TourFragment extends Fragment {
     private RecycleTourAdapter adapter;
     Tour tour;
     private List<Tour> tourList = new ArrayList<>();
+    private List<String> keyList = new ArrayList<>();
+    private List<String> idList = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,16 +41,18 @@ public class TourFragment extends Fragment {
 
 
         mRecyclerView = nRootView.findViewById(R.id.rcv_tour);
-        adapter = new RecycleTourAdapter(tourList,getContext());
+        adapter = new RecycleTourAdapter(tourList,keyList,idList,getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(adapter);
+
         if (CheckConnection.haveNetworkConnection(getContext())){
             saveTourData();
         }else {
             CheckConnection.ShowToast_Short(getContext(),"");
         }
+
         return nRootView;
     }
 
@@ -61,6 +66,8 @@ public class TourFragment extends Fragment {
                     for (DataSnapshot abc : messageSnapshot.getChildren()) {
                         tour = abc.getValue(Tour.class);
                         tourList.add(tour);
+                        keyList.add(messageSnapshot.getKey());
+                        idList.add(abc.getKey());
                         Log.d("abc", tour.getCity());
                     }
                 }
