@@ -30,10 +30,10 @@
 
         <TextView
             android:id="@+id/tv_username"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
-            android:text="khanh"
+            android:text="ngu"
             android:layout_marginLeft="10dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 

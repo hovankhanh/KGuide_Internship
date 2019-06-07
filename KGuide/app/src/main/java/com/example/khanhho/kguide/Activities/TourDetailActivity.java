@@ -1,22 +1,33 @@
 package com.example.khanhho.kguide.Activities;
 
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.ViewFlipper;
+import android.widget.TextView;
 
+import com.example.khanhho.kguide.Model.Tour;
 import com.example.khanhho.kguide.R;
-
-import java.util.ArrayList;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class TourDetailActivity extends AppCompatActivity {
-    ViewFlipper viewFlipper;
+    Tour tour;
+    private ImageView imgImageTour;
+    private TextView tvNameGuide, tvPrice, tvDescription, tvTopic, tvService, tvCity, tvPriceBook, tvAvailable;
+    String key, idTour;
+    private FirebaseAuth mAuth;
+    SharedPreferences sharedPreferences;
+
 
     
     @Override
@@ -24,12 +35,32 @@ public class TourDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tour_detail);
 
-        viewFlipper =(ViewFlipper) findViewById(R.id.viewlipper);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        tvAvailable = (TextView) findViewById(R.id.tv_available);
+        tvPriceBook = (TextView) findViewById(R.id.tv_price_book);
+        tvNameGuide = (TextView) findViewById(R.id.tv_name_guide);
+        tvPrice = (TextView) findViewById(R.id.tv_price);
+        tvDescription = (TextView) findViewById(R.id.tv_description);
+        tvTopic = (TextView) findViewById(R.id.tv_topic);
+        tvService = (TextView) findViewById(R.id.tv_service);
+        tvCity = (TextView) findViewById(R.id.tv_city);
+        imgImageTour = (ImageView) findViewById(R.id.img_tour_detail);
+
         setSupportActionBar(toolbar);
         this.getSupportActionBar().setDisplayShowHomeEnabled(true);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ActionViewFlipper();
+        sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+
+        if (sharedPreferences.getString("user", "").equals("guide")) {
+            mAuth = FirebaseAuth.getInstance();
+            key = mAuth.getCurrentUser().getUid();
+        }else {
+            key = "lxlP0qCtVJbnpuYFFr5WoVdC6lB2";
+            idTour = "1";
+        }
+
+        saveTourData();
     }
 
     @Override
@@ -41,22 +72,28 @@ public class TourDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void ActionViewFlipper() {
-        ArrayList<Integer> mangQuangcao = new ArrayList<>();
-        mangQuangcao.add(R.drawable.us);
-        mangQuangcao.add(R.drawable.rs);
-        mangQuangcao.add(R.drawable.vn);
-        for (int i = 0; i < mangQuangcao.size(); i++) {
-            ImageView imageView = new ImageView(this);
-            imageView.setBackgroundResource(mangQuangcao.get(i));
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            viewFlipper.addView(imageView);
-        }
-        viewFlipper.setFlipInterval(5000);
-        viewFlipper.setAutoStart(true);
-        Animation animation_slide_in = AnimationUtils.loadAnimation(this, R.anim.slide_in_right);
-        Animation  animation_slide_out = AnimationUtils.loadAnimation(this, R.anim.slide_out_right);
-        viewFlipper.setAnimation(animation_slide_in);
-        viewFlipper.setAnimation(animation_slide_out);
+    private void saveTourData() {
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference myRef = database.child("tour").child(key).child(idTour);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                tour = dataSnapshot.getValue(Tour.class);
+                Log.d("abc", tour.getCity());
+                tvPrice.setText(tour.getPrice()+" VND");
+                tvPriceBook.setText(tour.getPrice()+" VND");
+                tvDescription.setText(tour.getDescription().toString());
+                tvTopic.setText(tour.getTopic().toString());
+                tvService.setText(tour.getService());
+                tvAvailable.setText("Available on every "+tour.getTime()+" and suitable for "+tour.getAge());
+                String getAvatarImage = tour.getImageTour().toString();
+                Picasso.get().load(getAvatarImage).into(imgImageTour);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
     }
 }

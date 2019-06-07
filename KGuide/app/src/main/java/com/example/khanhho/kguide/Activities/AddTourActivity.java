@@ -81,7 +81,6 @@ public class AddTourActivity extends AppCompatActivity {
                 else {
                     lnParentGroupSize.setVisibility(View.GONE);
                 }
-
             }
         });
 
@@ -219,11 +218,6 @@ public class AddTourActivity extends AppCompatActivity {
 //        for(String abc: shortcuts){
 //            Log.d("abc",abc);
 //        }
-
-
-
-
-
     }
 
     @Override
@@ -241,8 +235,6 @@ public class AddTourActivity extends AppCompatActivity {
         int minute = myCalender.get(Calendar.MINUTE);
         final int amPm = myCalender.get(Calendar.AM_PM);
 
-
-
         TimePickerDialog.OnTimeSetListener myTimeListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -250,7 +242,6 @@ public class AddTourActivity extends AppCompatActivity {
                     myCalender.set(Calendar.HOUR_OF_DAY, hourOfDay);
                     myCalender.set(Calendar.MINUTE, minute);
                     myCalender.set(Calendar.AM_PM, amPm);
-
                 }
             }
         };

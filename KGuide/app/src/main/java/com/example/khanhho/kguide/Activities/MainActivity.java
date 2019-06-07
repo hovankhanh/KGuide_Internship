@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.khanhho.kguide.Adapter.GuideFragmentAdapter;
 import com.example.khanhho.kguide.Adapter.TouristFragmentAdapter;
+import com.example.khanhho.kguide.Model.Guide;
 import com.example.khanhho.kguide.Model.Tourist;
 import com.example.khanhho.kguide.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,10 +39,12 @@ public class MainActivity extends AppCompatActivity
     private ViewPager nVPTourist;
     private FirebaseAuth mAuth;
     private Tourist tourist;
+    private Guide guide;
     private String currentUser;
     private TextView tvUserName, tvStatus;
     private CircleImageView civAvatar;
     private LinearLayout lnProfile;
+    SharedPreferences sharedPreferences;
 
 
     @Override
@@ -69,37 +72,63 @@ public class MainActivity extends AppCompatActivity
         lnProfile = (LinearLayout) headerLayout.findViewById(R.id.ln_profile);
 
         navigationView.setNavigationItemSelectedListener(this);
-        SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+
         if (sharedPreferences.getString("user", "").equals("guide")){
+            final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference myRef = database.child("Users");
+            myRef.child(currentUser).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    guide = dataSnapshot.getValue(Guide.class);
+                    tvUserName.setText(guide.getName().toString() +" "+ guide.getSurname().toString());
+                    tvStatus.setText(guide.getStatus().toString());
+                    if (!guide.getImage().toString().equals("")) {
+                        String getAvatarImage = guide.getImage().toString();
+                        Picasso.get().load(getAvatarImage).into(civAvatar);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
             ViewGuideFragment();
         }else {
             ViewTouristFragment();
-        }
-
-        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference myRef = database.child("Users");
-        myRef.child(currentUser).addValueEventListener(new ValueEventListener() {
+            final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference myRef = database.child("Users");
+            myRef.child(currentUser).addValueEventListener(new ValueEventListener() {
                 @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                tourist = dataSnapshot.getValue(Tourist.class);
-                    tvUserName.setText(tourist.getName()+" "+tourist.getSurname());
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    tourist = dataSnapshot.getValue(Tourist.class);
+                    tvUserName.setText(tourist.getName()+" "+ tourist.getSurname());
                     tvStatus.setText(tourist.getStatus());
                     if (!tourist.getImage().toString().equals("")) {
                         String getAvatarImage = tourist.getImage().toString();
                         Picasso.get().load(getAvatarImage).into(civAvatar);
                     }
-            }
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
+
+
         lnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent login = new Intent(MainActivity.this, TouristProfileActivity.class);
-                startActivity(login);
+                if (sharedPreferences.getString("user", "").equals("guide")){
+                    Intent login = new Intent(MainActivity.this, GuideDetailActivity.class);
+                    startActivity(login);
+                }else {
+                    Intent login = new Intent(MainActivity.this, TouristProfileActivity.class);
+                    startActivity(login);
+                }
             }
         });
     }

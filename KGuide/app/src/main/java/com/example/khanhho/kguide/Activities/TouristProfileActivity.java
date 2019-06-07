@@ -64,8 +64,6 @@ public class TouristProfileActivity extends AppCompatActivity {
                     tvName.setText(tourist.getName().toString() + " " + tourist.getSurname().toString());
                     String getAvatarImage = tourist.getImage().toString();
                     Picasso.get().load(getAvatarImage).into(civAvatar);
-
-
             }
 
             @Override

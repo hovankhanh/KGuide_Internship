@@ -8,11 +8,14 @@ public class Tour {
     private String name;
     private String topic;
     private int price;
+    private String service;
+    private String age;
+    private String time;
 
     public Tour() {
     }
 
-    public Tour(String imageTour, String description, String city, String language, String name, String topic, int price) {
+    public Tour(String imageTour, String description, String city, String language, String name, String topic, int price, String service, String age, String time) {
         this.imageTour = imageTour;
         this.description = description;
         this.city = city;
@@ -20,6 +23,33 @@ public class Tour {
         this.name = name;
         this.topic = topic;
         this.price = price;
+        this.service = service;
+        this.age = age;
+        this.time = time;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getService() {
+        return service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
     }
 
     public String getImageTour() {
