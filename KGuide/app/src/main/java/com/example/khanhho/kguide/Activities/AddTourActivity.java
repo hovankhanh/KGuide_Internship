@@ -1,20 +1,21 @@
 package com.example.khanhho.kguide.Activities;
 
 import android.app.TimePickerDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.example.khanhho.kguide.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AddTourActivity extends AppCompatActivity {
@@ -67,6 +68,7 @@ public class AddTourActivity extends AppCompatActivity {
         lnGroupSize.setVisibility(View.GONE);
         lnParentGroupSize.setVisibility(View.GONE);
 
+
         swGroup.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -106,18 +108,39 @@ public class AddTourActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (blTopic) {
+                    ArrayList<String> list = new ArrayList<>();
+                    ListView lvListview = (ListView)findViewById(R.id.lv_topic);
+                    String shortcuts[] = getResources().getStringArray(R.array.topic);
+                    for(String abc: shortcuts){
+                        list.add(abc);
+                    }
+                    ArrayAdapter<String> arrayAdapter
+                            = new ArrayAdapter<String>(AddTourActivity.this, android.R.layout.simple_list_item_1,list );
+
+                    lvListview.setAdapter(arrayAdapter);
                     lnTopic.setVisibility(View.VISIBLE);
                     blTopic = false;
                 }else {
                     lnTopic.setVisibility(View.GONE);
                     blTopic = true;
                 }
+
             }
         });
         tvService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (blService) {
+                    ArrayList<String> list = new ArrayList<>();
+                    ListView lvListview = (ListView)findViewById(R.id.lv_service);
+                    String shortcuts[] = getResources().getStringArray(R.array.service);
+                    for(String abc: shortcuts){
+                        list.add(abc);
+                    }
+                    ArrayAdapter<String> arrayAdapter
+                            = new ArrayAdapter<String>(AddTourActivity.this, android.R.layout.simple_list_item_1,list );
+
+                    lvListview.setAdapter(arrayAdapter);
                     lnService.setVisibility(View.VISIBLE);
                     blService = false;
                 }else {
@@ -130,6 +153,16 @@ public class AddTourActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (blLanguage) {
+                    ArrayList<String> list = new ArrayList<>();
+                    ListView lvListview = (ListView)findViewById(R.id.lv_language);
+                    String shortcuts[] = getResources().getStringArray(R.array.language);
+                    for(String abc: shortcuts){
+                        list.add(abc);
+                    }
+                    ArrayAdapter<String> arrayAdapter
+                            = new ArrayAdapter<String>(AddTourActivity.this, android.R.layout.simple_list_item_1,list );
+
+                    lvListview.setAdapter(arrayAdapter);
                     lnLanguage.setVisibility(View.VISIBLE);
                     blLanguage = false;
                 }else {
@@ -142,6 +175,16 @@ public class AddTourActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (blAge) {
+                    ArrayList<String> list = new ArrayList<>();
+                    ListView lvListview = (ListView)findViewById(R.id.lv_age);
+                    String shortcuts[] = getResources().getStringArray(R.array.age);
+                    for(String abc: shortcuts){
+                        list.add(abc);
+                    }
+                    ArrayAdapter<String> arrayAdapter
+                            = new ArrayAdapter<String>(AddTourActivity.this, android.R.layout.simple_list_item_1,list );
+
+                    lvListview.setAdapter(arrayAdapter);
                     lnAge.setVisibility(View.VISIBLE);
                     blAge = false;
                 }else {
@@ -171,13 +214,16 @@ public class AddTourActivity extends AppCompatActivity {
         });
 
 
-
-
 //        String shortcuts[] = getResources().getStringArray(R.array.province);
 //
 //        for(String abc: shortcuts){
 //            Log.d("abc",abc);
 //        }
+
+
+
+
+
     }
 
     @Override

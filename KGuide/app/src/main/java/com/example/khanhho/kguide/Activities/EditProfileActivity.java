@@ -1,6 +1,7 @@
 package com.example.khanhho.kguide.Activities;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -32,22 +35,25 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditProfileActivity extends AppCompatActivity {
-   private FirebaseAuth mAuth;
-   private DatabaseReference DBf;
-   private Tourist tourist;
-   private CircleImageView nAvatar;
-   private StorageReference UserProfileImageRef;
-   public Uri imageUri;
-   private String currentUser;
+    private FirebaseAuth mAuth;
+    private DatabaseReference DBf;
+    private Tourist tourist;
+    private CircleImageView nAvatar;
+    private StorageReference UserProfileImageRef;
+    public Uri imageUri;
+    private String currentUser;
     private static final int GalleryPick = 1;
-   private ProgressDialog loaddingBar;
+    private ProgressDialog loaddingBar;
+    Button btnDatePicker;
+    private int mYear, mMonth, mDay;
 
-   private EditText edName, edSurname, edGender, edCountry, edLanguage, edDayOfBirth, edAddress, edJobPosition, edPhoneNumber;
+    private EditText edName, edSurname, edGender, edCountry, edLanguage, edDayOfBirth, edAddress, edJobPosition, edPhoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +61,15 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
         nAvatar = (CircleImageView) findViewById(R.id.civ_avatar_edit);
-        edName = (EditText)findViewById(R.id.edt_name);
-        edSurname = (EditText)findViewById(R.id.edt_surname);
-        edGender = (EditText)findViewById(R.id.edt_gender);
-        edCountry = (EditText)findViewById(R.id.edt_country);
-        edLanguage = (EditText)findViewById(R.id.edt_language);
-        edDayOfBirth = (EditText)findViewById(R.id.edt_dayofbirth);
-        edAddress = (EditText)findViewById(R.id.edt_address);
-        edJobPosition = (EditText)findViewById(R.id.edt_jobposition);
-        edPhoneNumber = (EditText)findViewById(R.id.edt_phonenumber);
+        edName = (EditText) findViewById(R.id.edt_name);
+        edSurname = (EditText) findViewById(R.id.edt_surname);
+        edGender = (EditText) findViewById(R.id.edt_gender);
+        edCountry = (EditText) findViewById(R.id.edt_country);
+        edLanguage = (EditText) findViewById(R.id.edt_language);
+        edDayOfBirth = (EditText) findViewById(R.id.edt_dayofbirth);
+        edAddress = (EditText) findViewById(R.id.edt_address);
+        edJobPosition = (EditText) findViewById(R.id.edt_jobposition);
+        edPhoneNumber = (EditText) findViewById(R.id.edt_phonenumber);
         loaddingBar = new ProgressDialog(this);
 
         UserProfileImageRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
@@ -99,11 +105,11 @@ public class EditProfileActivity extends AppCompatActivity {
                         File f = new File(path);
                         selectedImageUri = Uri.fromFile(f);
                     }
-                    final StorageReference filePath = UserProfileImageRef.child(currentUser+".jpg");
+                    final StorageReference filePath = UserProfileImageRef.child(currentUser + ".jpg");
                     filePath.putFile(selectedImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 filePath.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Uri> task) {
@@ -113,12 +119,12 @@ public class EditProfileActivity extends AppCompatActivity {
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
-                                                        if(task.isSuccessful()){
-                                                            Toast.makeText(EditProfileActivity.this,"Up ok",Toast.LENGTH_SHORT).show();
+                                                        if (task.isSuccessful()) {
+                                                            Toast.makeText(EditProfileActivity.this, "Up ok", Toast.LENGTH_SHORT).show();
                                                             loaddingBar.dismiss();
-                                                        }else {
+                                                        } else {
                                                             String message = task.getException().toString();
-                                                            Toast.makeText(EditProfileActivity.this,""+message,Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(EditProfileActivity.this, "" + message, Toast.LENGTH_SHORT).show();
                                                             loaddingBar.dismiss();
                                                         }
                                                     }
@@ -128,7 +134,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                 loaddingBar.dismiss();
                             } else {
                                 String message = task.getException().toString();
-                                Toast.makeText(EditProfileActivity.this,""+message,Toast.LENGTH_SHORT).show();
+                                Toast.makeText(EditProfileActivity.this, "" + message, Toast.LENGTH_SHORT).show();
                                 loaddingBar.dismiss();
                             }
                         }
@@ -170,14 +176,14 @@ public class EditProfileActivity extends AppCompatActivity {
         loaddingBar = new ProgressDialog(this);
 
 
-        if (TextUtils.isEmpty(nName)|| TextUtils.isEmpty(nSurname)
+        if (TextUtils.isEmpty(nName) || TextUtils.isEmpty(nSurname)
                 || TextUtils.isEmpty(nGender) || TextUtils.isEmpty(nCountry)
                 || TextUtils.isEmpty(nLanguage) || TextUtils.isEmpty(nDayOfBirth)
                 || TextUtils.isEmpty(nAddress) || TextUtils.isEmpty(nJobPosition)
-                || TextUtils.isEmpty(nPhoneNumber)){
+                || TextUtils.isEmpty(nPhoneNumber)) {
             Toast.makeText(this, "Please enter your information ...", Toast.LENGTH_SHORT).show();
         } else {
-            HashMap<String,Object> profileMap = new HashMap<>();
+            HashMap<String, Object> profileMap = new HashMap<>();
             profileMap.put("name", nName);
             profileMap.put("surname", nSurname);
             profileMap.put("gender", nGender);
@@ -193,13 +199,13 @@ public class EditProfileActivity extends AppCompatActivity {
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                Toast.makeText(EditProfileActivity.this,"Update info successfully ...", Toast.LENGTH_SHORT).show();
+                            if (task.isSuccessful()) {
+                                Toast.makeText(EditProfileActivity.this, "Update info successfully ...", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
                                 startActivity(intent);
-                            }else{
+                            } else {
                                 String message = task.getException().toString();
-                                Toast.makeText(EditProfileActivity.this,"Error: "+message, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(EditProfileActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -217,6 +223,13 @@ public class EditProfileActivity extends AppCompatActivity {
                 tourist = dataSnapshot.getValue(Tourist.class);
                 edName.setText(tourist.getName().toString());
                 edSurname.setText(tourist.getSurname().toString());
+                edGender.setText(tourist.getGender().toString());
+                edCountry.setText(tourist.getCountry().toString());
+                edLanguage.setText(tourist.getLanguage().toString());
+                edDayOfBirth.setText(tourist.getDayofbirth().toString());
+                edAddress .setText(tourist.getAddress().toString());
+                edJobPosition.setText(tourist.getJobposition().toString());
+                edPhoneNumber.setText(tourist.getPhonenumber().toString());
 
                 if (tourist.getImage() != null) {
                     String getAvatarImage = tourist.getImage().toString();
@@ -231,9 +244,9 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void alertView( String message ) {
+    private void alertView(String message) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle( "Confirm" )
+        dialog.setTitle("Confirm")
                 .setMessage(message)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialoginterface, int i) {
@@ -245,5 +258,26 @@ public class EditProfileActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         }).show();
+    }
+
+    public void SelectDate(View view) {
+        // Get Current Date
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+                        edDayOfBirth.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                    }
+                }, mYear, mMonth, mDay);
+        datePickerDialog.show();
     }
 }

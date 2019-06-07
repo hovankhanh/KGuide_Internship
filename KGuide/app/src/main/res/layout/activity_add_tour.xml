@@ -101,85 +101,12 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:id="@+id/ln_topic">
-                    <TextView
+                    <ListView
+                        android:id="@+id/lv_topic"
+                        android:layout_marginLeft="60dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="History"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Parks"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="City tour"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Nature tour"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Art"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Fun"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Creative"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Music"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Sports"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Food"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Drinks"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Photography"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Other"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp" />
+                        android:layout_height="300dp">
+                    </ListView>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -211,54 +138,12 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:id="@+id/ln_service">
-                    <TextView
+                    <ListView
+                        android:id="@+id/lv_service"
+                        android:layout_marginLeft="60dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Driving"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Cycling"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Boating"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Running"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Motocycling"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Flying"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Diving"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Other"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
+                        android:layout_height="350dp">
+                    </ListView>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -289,30 +174,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:id="@+id/ln_age">
-                    <TextView
+                    <ListView
+                        android:id="@+id/lv_age"
+                        android:layout_marginLeft="60dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="18-25"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="26-35"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="36-45"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="46+"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
+                        android:layout_height="200dp">
+
+                    </ListView>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -344,36 +212,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:id="@+id/ln_language">
-                    <TextView
+                    <ListView
+                        android:id="@+id/lv_language"
+                        android:layout_marginLeft="60dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="English"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="German"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="French"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Spanish"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Local/Other"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"/>
+                        android:layout_height="250dp">
+
+                    </ListView>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
