@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -23,7 +22,7 @@ import com.squareup.picasso.Picasso;
 public class TourDetailActivity extends AppCompatActivity {
     Tour tour;
     private ImageView imgImageTour;
-    private TextView tvNameGuide, tvPrice, tvDescription, tvTopic, tvService, tvCity, tvPriceBook, tvAvailable;
+    private TextView tvNameGuide, tvPrice, tvDescription, tvTopic, tvService, tvCity, tvPriceBook, tvAvailable, tvNameTour;
     String key, idTour;
     private FirebaseAuth mAuth;
     SharedPreferences sharedPreferences;
@@ -36,7 +35,6 @@ public class TourDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tour_detail);
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         tvAvailable = (TextView) findViewById(R.id.tv_available);
         tvPriceBook = (TextView) findViewById(R.id.tv_price_book);
         tvNameGuide = (TextView) findViewById(R.id.tv_name_guide);
@@ -46,10 +44,11 @@ public class TourDetailActivity extends AppCompatActivity {
         tvService = (TextView) findViewById(R.id.tv_service);
         tvCity = (TextView) findViewById(R.id.tv_city);
         imgImageTour = (ImageView) findViewById(R.id.img_tour_detail);
+        tvNameTour = (TextView) findViewById(R.id.tv_name_tour);
 
-        setSupportActionBar(toolbar);
-        this.getSupportActionBar().setDisplayShowHomeEnabled(true);
-        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        setSupportActionBar(toolbar);
+//        this.getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
 
         if (sharedPreferences.getString("user", "").equals("guide")) {
@@ -79,12 +78,13 @@ public class TourDetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 tour = dataSnapshot.getValue(Tour.class);
-                Log.d("abc", tour.getCity());
+                Log.d("abc", tour.getCity().toString());
                 tvPrice.setText(tour.getPrice()+" VND");
                 tvPriceBook.setText(tour.getPrice()+" VND");
                 tvDescription.setText(tour.getDescription().toString());
                 tvTopic.setText(tour.getTopic().toString());
-                tvService.setText(tour.getService());
+                tvService.setText(tour.getService().toString());
+                tvNameTour.setText(tour.getName().toString());
                 tvAvailable.setText("Available on every "+tour.getTime()+" and suitable for "+tour.getAge());
                 String getAvatarImage = tour.getImageTour().toString();
                 Picasso.get().load(getAvatarImage).into(imgImageTour);
