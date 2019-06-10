@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.khanhho.kguide.Model.Guide;
 import com.example.khanhho.kguide.Model.Tour;
 import com.example.khanhho.kguide.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,15 +21,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class TourDetailActivity extends AppCompatActivity {
     private Tour tour;
     private ImageView imgImageTour;
-    private TextView tvNameGuide, tvPrice, tvDescription, tvTopic, tvService, tvCity, tvPriceBook, tvAvailable, tvNameTour;
+    private TextView tvNameGuide, tvPrice, tvDescription, tvTopic, tvService, tvCity, tvPriceBook, tvAvailable, tvNameTour, tvTitleGuide;
     private String key, idTour;
     private LinearLayout lnBook;
     private FirebaseAuth mAuth;
     private SharedPreferences sharedPreferences;
+    private Guide guide;
 
 
     @Override
@@ -48,6 +51,7 @@ public class TourDetailActivity extends AppCompatActivity {
         imgImageTour = (ImageView) findViewById(R.id.img_tour_detail);
         tvNameTour = (TextView) findViewById(R.id.tv_name_tour);
         lnBook = (LinearLayout) findViewById(R.id.ln_book);
+        tvTitleGuide = (TextView) findViewById(R.id.tv_title_guide);
 
 //        setSupportActionBar(toolbar);
 //        this.getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -59,11 +63,28 @@ public class TourDetailActivity extends AppCompatActivity {
             key = mAuth.getCurrentUser().getUid();
             lnBook.setVisibility(View.GONE);
             tvNameGuide.setVisibility(View.GONE);
-            idTour = "1";
+            tvTitleGuide.setVisibility(View.GONE);
+            Intent intent = getIntent();
+            idTour = intent.getStringExtra("id");
         } else {
             Intent intent = getIntent();
             key = intent.getStringExtra("key");
             idTour = intent.getStringExtra("id");
+            DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference myRef = database.child("Users").child(key);
+            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    guide = dataSnapshot.getValue(Guide.class);
+                    tvNameGuide.setText(guide.getSurname()+" "+guide.getName());
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
         }
 
         saveTourData();
@@ -80,7 +101,6 @@ public class TourDetailActivity extends AppCompatActivity {
 
     private void saveTourData() {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        Log.d("abc", key + " " + idTour);
         DatabaseReference myRef = database.child("tour").child(key).child(idTour);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -89,13 +109,14 @@ public class TourDetailActivity extends AppCompatActivity {
                 Log.d("abc", tour.getCity().toString());
                 tvPrice.setText(tour.getPrice() + " VND");
                 tvPriceBook.setText(tour.getPrice() + " VND");
-//                tvDescription.setText(tour.getDescription().toString());
-//                tvTopic.setText(tour.getTopic().toString());
-//                tvService.setText(tour.getService().toString());
-//                tvNameTour.setText(tour.getName().toString());
-//                tvAvailable.setText("Available on every " + tour.getTime() + " and suitable for " + tour.getAge());
-//                String getAvatarImage = tour.getImageTour().toString();
-//                Picasso.get().load(getAvatarImage).into(imgImageTour);
+                tvDescription.setText(tour.getDescription().toString());
+                tvTopic.setText(tour.getTopic().toString());
+                tvService.setText(tour.getService().toString());
+                tvNameTour.setText(tour.getName().toString());
+                tvCity.setText(tour.getCity().toString());
+                tvAvailable.setText("Available on every " + tour.getTime() + " and suitable for " + tour.getAge());
+                String getAvatarImage = tour.getImageTour().toString();
+                Picasso.get().load(getAvatarImage).into(imgImageTour);
             }
 
             @Override

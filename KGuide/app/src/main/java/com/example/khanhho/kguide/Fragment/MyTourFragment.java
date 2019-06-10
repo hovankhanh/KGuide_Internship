@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.khanhho.kguide.Activities.AddTourActivity;
 import com.example.khanhho.kguide.Activities.TourDetailActivity;
 import com.example.khanhho.kguide.Adapter.MytourAdapter;
 import com.example.khanhho.kguide.Model.Tour;
@@ -31,6 +33,7 @@ public class MyTourFragment extends Fragment {
     private FirebaseAuth mAuth;
     private Tour tour;
     private MytourAdapter adapter;
+    private List<String> idList = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,7 +50,16 @@ public class MyTourFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                Intent intent = new Intent(getContext(), TourDetailActivity.class);
+                Intent mIntent = new Intent(getContext(), TourDetailActivity.class);
+                mIntent.putExtra("id",idList.get(position));
+                startActivity(mIntent);
+            }
+        });
+        FloatingActionButton fab = nRootView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AddTourActivity.class);
                 startActivity(intent);
             }
         });
@@ -64,6 +76,7 @@ public class MyTourFragment extends Fragment {
                 for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
                     tour = messageSnapshot.getValue(Tour.class);
                     list.add(tour);
+                    idList.add(messageSnapshot.getKey());
                 }
                 adapter.notifyDataSetChanged();
             }

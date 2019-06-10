@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.example.khanhho.kguide.Activities.GuideDetailActivity;
 import com.example.khanhho.kguide.Adapter.GridGuideAdapter;
@@ -47,10 +46,10 @@ public class GuideFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                Object o = gridView.getItemAtPosition(position);
-                Guide country = (Guide) o;
-                Toast.makeText(getContext(), "Selected :"
-                        + " " + country, Toast.LENGTH_LONG).show();
+//                Object o = gridView.getItemAtPosition(position);
+//                Guide country = (Guide) o;
+//                Toast.makeText(getContext(), "Selected :"
+//                        + " " + country, Toast.LENGTH_LONG).show();
 
                 Intent mIntent = new Intent(getContext(), GuideDetailActivity.class);
                 mIntent.putExtra("key",keyList.get(position));

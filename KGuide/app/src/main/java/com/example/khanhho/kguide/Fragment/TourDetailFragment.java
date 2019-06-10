@@ -1,5 +1,6 @@
 package com.example.khanhho.kguide.Fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,11 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.khanhho.kguide.Adapter.TourFragmentAdapter;
 import com.example.khanhho.kguide.Model.Tour;
 import com.example.khanhho.kguide.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,11 +28,26 @@ public class TourDetailFragment extends Fragment {
     private View nRootView;
     private TourFragmentAdapter adapter;
     private Tour tour;
+    SharedPreferences sharedPreferences;
+    private String currentUser;
+    private FirebaseAuth mAuth;
+
+
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         nRootView = inflater.inflate(R.layout.fragment_tour_guide, container, false);
+
+//        sharedPreferences = nRootView.getSharedPreferences("user", MODE_PRIVATE);
+//        if (sharedPreferences.getString("user", "").equals("guide")) {
+//            mAuth = FirebaseAuth.getInstance();
+//            currentUser = mAuth.getCurrentUser().getUid();
+//        }else {
+//            Intent intent = getIntent();
+//            currentUser = intent.getStringExtra("key");
+//        }
 
         List<Tour> data = getListData();
         final ListView listView = (ListView) nRootView.findViewById(R.id.lv_tour);
@@ -43,11 +59,13 @@ public class TourDetailFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                Object o = listView.getItemAtPosition(position);
-                Tour tour = (Tour) o;
-                Toast.makeText(getContext(), "Selected :" + " " + tour, Toast.LENGTH_LONG).show();
+//                Object o = listView.getItemAtPosition(position);
+//                Tour tour = (Tour) o;
+//                Toast.makeText(getContext(), "Selected :" + " " + tour, Toast.LENGTH_LONG).show();
+
             }
         });
+
         return nRootView;
     }
 

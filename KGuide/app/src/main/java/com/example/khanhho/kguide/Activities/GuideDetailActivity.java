@@ -57,7 +57,6 @@ public class GuideDetailActivity extends AppCompatActivity {
             mAuth = FirebaseAuth.getInstance();
             currentUser = mAuth.getCurrentUser().getUid();
         }else {
-//            currentUser = "KmnCr8IYDqe6u1fC139P2QAZvul1";
             Intent intent = getIntent();
             currentUser = intent.getStringExtra("key");
         }

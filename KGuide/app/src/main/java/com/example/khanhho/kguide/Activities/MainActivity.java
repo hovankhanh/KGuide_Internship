@@ -168,8 +168,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            Intent login = new Intent(this, TouristProfileActivity.class);
-            startActivity(login);
+
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
             Intent login = new Intent(this, MyTourTouristActivity.class);
@@ -181,8 +180,6 @@ public class MainActivity extends AppCompatActivity
             finish();
 
         } else if (id == R.id.nav_manage) {
-            Intent login = new Intent(this, AddTourActivity.class);
-            startActivity(login);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
