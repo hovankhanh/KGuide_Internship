@@ -1,10 +1,10 @@
 package com.example.khanhho.kguide.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.khanhho.kguide.Activities.GuideDetailActivity;
+import com.example.khanhho.kguide.Activities.TourDetailActivity;
 import com.example.khanhho.kguide.Adapter.TourFragmentAdapter;
 import com.example.khanhho.kguide.Model.Tour;
 import com.example.khanhho.kguide.R;
@@ -32,6 +33,7 @@ public class TourDetailFragment extends Fragment {
     private String key;
     private String currentUser;
     private FirebaseAuth mAuth;
+    private List<String> idList = new ArrayList<>();
 
 
 
@@ -50,10 +52,10 @@ public class TourDetailFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-//                Object o = listView.getItemAtPosition(position);
-//                Tour tour = (Tour) o;
-//                Toast.makeText(getContext(), "Selected :" + " " + tour, Toast.LENGTH_LONG).show();
-
+                Intent mIntent = new Intent(getContext(), TourDetailActivity.class);
+                mIntent.putExtra("id",idList.get(position));
+                mIntent.putExtra("key",key);
+                startActivity(mIntent);
             }
         });
 
@@ -66,9 +68,7 @@ public class TourDetailFragment extends Fragment {
         currentUser = mAuth.getCurrentUser().getUid();
         if (!GuideDetailActivity.currentUser.equals(currentUser)){
             key = GuideDetailActivity.currentUser;
-            Log.d("nguye", "1234");
         }else {
-            Log.d("nguye", "5678");
             key = currentUser;
         }
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -79,6 +79,7 @@ public class TourDetailFragment extends Fragment {
                 for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
                     tour = messageSnapshot.getValue(Tour.class);
                     list.add(tour);
+                    idList.add(messageSnapshot.getKey());
                 }
                 adapter.notifyDataSetChanged();
             }

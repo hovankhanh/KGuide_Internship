@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +67,6 @@ public class TourFragment extends Fragment {
                         tourList.add(tour);
                         keyList.add(messageSnapshot.getKey());
                         idList.add(abc.getKey());
-                        Log.d("abc", tour.getCity());
                     }
                 }
                 adapter.notifyDataSetChanged();
