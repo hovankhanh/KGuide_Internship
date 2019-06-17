@@ -23,13 +23,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class GuideDetailActivity extends AppCompatActivity {
     private ViewPager nVPTourist;
     private CircleImageView cvAvatarGuide;
     private TextView tvNameGuide;
-    private String currentUser;
+    public static String currentUser;
     private FirebaseAuth mAuth;
     private RatingBar rbStarDetail;
     private Guide guide;
@@ -50,7 +52,6 @@ public class GuideDetailActivity extends AppCompatActivity {
         this.getSupportActionBar().setDisplayShowHomeEnabled(true);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ViewTouristFragment();
         sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
 
         if (sharedPreferences.getString("user", "").equals("guide")) {
@@ -79,6 +80,7 @@ public class GuideDetailActivity extends AppCompatActivity {
             }
         });
 
+        ViewTouristFragment();
 
     }
 
@@ -98,4 +100,7 @@ public class GuideDetailActivity extends AppCompatActivity {
         tablayout.setupWithViewPager(nVPTourist);
     }
 
+    public static List<String> getArr(){
+        return null;
+    }
 }

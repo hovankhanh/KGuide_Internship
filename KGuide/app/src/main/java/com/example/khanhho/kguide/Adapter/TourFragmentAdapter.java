@@ -58,7 +58,6 @@ public class TourFragmentAdapter extends BaseAdapter {
         holder.tvNameTour.setText(tour.getName().toString());
         String getAvatarImage = tour.getImageTour().toString();
         Picasso.get().load(getAvatarImage).into(holder.imgTour);
-
         return convertView;
     }
 

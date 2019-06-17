@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -20,10 +21,11 @@ import java.util.Calendar;
 
 public class AddTourActivity extends AppCompatActivity {
     private Switch swGroup;
-    private LinearLayout lnTime, lnTopic, lnLanguage, lnService, lnAge, lnGroupSize, lnParentGroupSize;
+    private LinearLayout lnTime, lnLanguage, lnAge, lnGroupSize, lnParentGroupSize;
     private TextView tvTime, tvTopic, tvLanguage, tvService, tvAge, tvGroupSize, tvCity;
     private TextView tvAddMo, tvAddTue, tvAddWed, tvAddThu, tvAddFri, tvAddSat, tvAddSun;
     private Boolean blTime = true, blTopic = true, blLanguage = true, blService = true, blAge = true, blGroupSize = true;
+    private ListView lvTopic, lvService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class AddTourActivity extends AppCompatActivity {
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        tvAddMo = (TextView) findViewById(R.id.tv_monday);
+        tvAddMo = findViewById(R.id.tv_monday);
         tvAddTue = (TextView) findViewById(R.id.tv_tuesday);
         tvAddWed = (TextView) findViewById(R.id.tv_wednesday);
         tvAddThu = (TextView) findViewById(R.id.tv_thursday);
@@ -46,8 +48,8 @@ public class AddTourActivity extends AppCompatActivity {
         lnTime = (LinearLayout) findViewById(R.id.ln_time);
         lnAge = (LinearLayout) findViewById(R.id.ln_age);
         lnLanguage = (LinearLayout) findViewById(R.id.ln_language);
-        lnService = (LinearLayout) findViewById(R.id.ln_service);
-        lnTopic = (LinearLayout) findViewById(R.id.ln_topic);
+        lvService = (ListView) findViewById(R.id.lv_service);
+        lvTopic = (ListView) findViewById(R.id.lv_topic);
         lnGroupSize = (LinearLayout) findViewById(R.id.ln_group_size);
         lnParentGroupSize = (LinearLayout) findViewById(R.id.ln_parent_group_size);
         tvCity = (TextView) findViewById(R.id.tv_city);
@@ -61,8 +63,8 @@ public class AddTourActivity extends AppCompatActivity {
 
 
         lnTime.setVisibility(View.GONE);
-        lnTopic.setVisibility(View.GONE);
-        lnService.setVisibility(View.GONE);
+        lvTopic.setVisibility(View.GONE);
+        lvService.setVisibility(View.GONE);
         lnLanguage.setVisibility(View.GONE);
         lnAge.setVisibility(View.GONE);
         lnGroupSize.setVisibility(View.GONE);
@@ -108,8 +110,8 @@ public class AddTourActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (blTopic) {
                     ArrayList<String> list = new ArrayList<>();
-                    ListView lvListview = (ListView)findViewById(R.id.lv_topic);
-                    String shortcuts[] = getResources().getStringArray(R.array.topic);
+                    final ListView lvListview = (ListView)findViewById(R.id.lv_topic);
+                    final String shortcuts[] = getResources().getStringArray(R.array.topic);
                     for(String abc: shortcuts){
                         list.add(abc);
                     }
@@ -117,13 +119,18 @@ public class AddTourActivity extends AppCompatActivity {
                             = new ArrayAdapter<String>(AddTourActivity.this, android.R.layout.simple_list_item_1,list );
 
                     lvListview.setAdapter(arrayAdapter);
-                    lnTopic.setVisibility(View.VISIBLE);
+                    lvTopic.setVisibility(View.VISIBLE);
+                    lvListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        }
+                    });
                     blTopic = false;
                 }else {
-                    lnTopic.setVisibility(View.GONE);
+                    lvTopic.setVisibility(View.GONE);
                     blTopic = true;
                 }
-
             }
         });
         tvService.setOnClickListener(new View.OnClickListener() {
@@ -140,10 +147,10 @@ public class AddTourActivity extends AppCompatActivity {
                             = new ArrayAdapter<String>(AddTourActivity.this, android.R.layout.simple_list_item_1,list );
 
                     lvListview.setAdapter(arrayAdapter);
-                    lnService.setVisibility(View.VISIBLE);
+                    lvService.setVisibility(View.VISIBLE);
                     blService = false;
                 }else {
-                    lnService.setVisibility(View.GONE);
+                    lvService.setVisibility(View.GONE);
                     blService = true;
                 }
             }

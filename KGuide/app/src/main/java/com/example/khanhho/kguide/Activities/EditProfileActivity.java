@@ -175,7 +175,6 @@ public class EditProfileActivity extends AppCompatActivity {
         String nPhoneNumber = edPhoneNumber.getText().toString();
         loaddingBar = new ProgressDialog(this);
 
-
         if (TextUtils.isEmpty(nName) || TextUtils.isEmpty(nSurname)
                 || TextUtils.isEmpty(nGender) || TextUtils.isEmpty(nCountry)
                 || TextUtils.isEmpty(nLanguage) || TextUtils.isEmpty(nDayOfBirth)
@@ -196,19 +195,18 @@ public class EditProfileActivity extends AppCompatActivity {
             profileMap.put("status", "tourist");
             currentUser = mAuth.getCurrentUser().getUid();
             DBf.child("Users").child(currentUser).updateChildren(profileMap)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(EditProfileActivity.this, "Update info successfully ...", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
-                                startActivity(intent);
-                            } else {
-                                String message = task.getException().toString();
-                                Toast.makeText(EditProfileActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
-                            }
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(EditProfileActivity.this, "Update info successfully ...", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            String message = task.getException().toString();
+                            Toast.makeText(EditProfileActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    }});
         }
 
     }
@@ -269,7 +267,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 new DatePickerDialog.OnDateSetListener() {
-
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {

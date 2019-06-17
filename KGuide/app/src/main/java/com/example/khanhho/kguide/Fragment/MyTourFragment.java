@@ -38,6 +38,8 @@ public class MyTourFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         nRootView = inflater.inflate(R.layout.fragment_my_tour, container, false);
+
+
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser().getUid();
         List<Tour> data = getListData();

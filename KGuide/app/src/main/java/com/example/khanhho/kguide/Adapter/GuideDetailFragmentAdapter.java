@@ -5,10 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.khanhho.kguide.Fragment.GuideFragment;
 import com.example.khanhho.kguide.Fragment.RatingFragment;
 import com.example.khanhho.kguide.Fragment.TourDetailFragment;
-import com.example.khanhho.kguide.Fragment.TourFragment;
 
 public class GuideDetailFragmentAdapter extends FragmentStatePagerAdapter {
     private String listTab[] = {"Tour","Rating"};
