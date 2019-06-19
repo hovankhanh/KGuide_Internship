@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#80FDFAFA"
+        android:layout_marginBottom="20dp">
+        <LinearLayout
+            android:layout_marginLeft="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:textColor="#FFF"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Waiting"/>
+            <TextView
+                android:id="@+id/tv_current_time"
+                android:textColor="@android:color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Apr 07,2019, 8:18 AM"
+                android:gravity="right"/>
+
+        </LinearLayout>
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@android:color/black" />
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:id="@+id/tv_start_date"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="start date"/>
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:id="@+id/tv_tour_name"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name tour"/>
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:id="@+id/tv_guide_name"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name guide" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="-50dp"
+            android:layout_width="match_parent"
+            android:gravity="right"
+            android:layout_height="wrap_content"
+            android:text="134 VND"
+            />
+    </LinearLayout>
+
+</LinearLayout>

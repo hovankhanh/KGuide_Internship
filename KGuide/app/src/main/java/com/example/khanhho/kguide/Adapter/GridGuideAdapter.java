@@ -58,7 +58,7 @@ public class GridGuideAdapter extends BaseAdapter {
 
         Guide guide = this.listData.get(position);
 
-        holder.nameGuide.setText(guide.getName().toString());
+        holder.nameGuide.setText(guide.getName().toString()+" "+guide.getSurname());
         String getAvatarImage = guide.getImage().toString();
         Picasso.get().load(getAvatarImage).into(holder.avarta);
         holder.star.setRating(guide.getStar());

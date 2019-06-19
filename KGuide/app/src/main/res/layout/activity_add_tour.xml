@@ -252,118 +252,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <TextView
+                    <ListView
+                        android:id="@+id/lv_time"
+                        android:layout_marginLeft="60dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Monday"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="5dp"/>
-                    <TextView
-                        android:id="@+id/tv_monday"
-                        android:drawableLeft="@drawable/icon_plus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Add time"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"
-                        android:drawablePadding="5dp"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Tuesday"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="5dp"/>
-                    <TextView
-                        android:id="@+id/tv_tuesday"
-                        android:drawableLeft="@drawable/icon_plus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Add time"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"
-                        android:drawablePadding="5dp"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Wednesday"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="5dp"/>
-                    <TextView
-                        android:id="@+id/tv_wednesday"
-                        android:drawableLeft="@drawable/icon_plus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Add time"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"
-                        android:drawablePadding="5dp"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Thursday"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="5dp"/>
-                    <TextView
-                        android:id="@+id/tv_thursday"
-                        android:drawableLeft="@drawable/icon_plus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Add time"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"
-                        android:drawablePadding="5dp"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Friday"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="5dp"/>
-                    <TextView
-                        android:id="@+id/tv_friday"
-                        android:drawableLeft="@drawable/icon_plus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Add time"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"
-                        android:drawablePadding="5dp"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Saturday"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="5dp"/>
-                    <TextView
-                        android:id="@+id/tv_Saturday"
-                        android:drawableLeft="@drawable/icon_plus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Add time"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"
-                        android:drawablePadding="5dp"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Sunday"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="5dp"/>
-                    <TextView
-                        android:id="@+id/tv_sunday"
-                        android:drawableLeft="@drawable/icon_plus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Add time"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginBottom="10dp"
-                        android:drawablePadding="5dp"
-                        />
+                        android:layout_height="250dp">
+                    </ListView>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout

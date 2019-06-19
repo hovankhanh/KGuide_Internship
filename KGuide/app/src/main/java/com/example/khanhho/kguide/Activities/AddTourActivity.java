@@ -21,11 +21,10 @@ import java.util.Calendar;
 
 public class AddTourActivity extends AppCompatActivity {
     private Switch swGroup;
-    private LinearLayout lnTime, lnLanguage, lnAge, lnGroupSize, lnParentGroupSize;
+    private LinearLayout lnTime = (LinearLayout) findViewById(R.id.ln_time), lnLanguage = (LinearLayout) findViewById(R.id.ln_language), lnAge, lnGroupSize, lnParentGroupSize;
     private TextView tvTime, tvTopic, tvLanguage, tvService, tvAge, tvGroupSize, tvCity;
-    private TextView tvAddMo, tvAddTue, tvAddWed, tvAddThu, tvAddFri, tvAddSat, tvAddSun;
     private Boolean blTime = true, blTopic = true, blLanguage = true, blService = true, blAge = true, blGroupSize = true;
-    private ListView lvTopic, lvService;
+    private ListView lvTopic, lvService, lvTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,18 +37,10 @@ public class AddTourActivity extends AppCompatActivity {
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        tvAddMo = findViewById(R.id.tv_monday);
-        tvAddTue = (TextView) findViewById(R.id.tv_tuesday);
-        tvAddWed = (TextView) findViewById(R.id.tv_wednesday);
-        tvAddThu = (TextView) findViewById(R.id.tv_thursday);
-        tvAddFri = (TextView) findViewById(R.id.tv_friday);
-        tvAddSat = (TextView) findViewById(R.id.tv_Saturday);
-        tvAddSun = (TextView) findViewById(R.id.tv_sunday);
-        lnTime = (LinearLayout) findViewById(R.id.ln_time);
-        lnAge = (LinearLayout) findViewById(R.id.ln_age);
-        lnLanguage = (LinearLayout) findViewById(R.id.ln_language);
+        lnAge = findViewById(R.id.ln_age);
         lvService = (ListView) findViewById(R.id.lv_service);
         lvTopic = (ListView) findViewById(R.id.lv_topic);
+        lvTime = findViewById(R.id.lv_time);
         lnGroupSize = (LinearLayout) findViewById(R.id.ln_group_size);
         lnParentGroupSize = (LinearLayout) findViewById(R.id.ln_parent_group_size);
         tvCity = (TextView) findViewById(R.id.tv_city);
@@ -212,19 +203,28 @@ public class AddTourActivity extends AppCompatActivity {
             }
         });
 
-        tvAddMo.setOnClickListener(new View.OnClickListener() {
+        tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHourPicker();
+                if (blTime) {
+                    ArrayList<String> list = new ArrayList<>();
+                    ListView lvListview = (ListView)findViewById(R.id.lv_time);
+                    String shortcuts[] = getResources().getStringArray(R.array.time);
+                    for(String abc: shortcuts){
+                        list.add(abc);
+                    }
+                    ArrayAdapter<String> arrayAdapter
+                            = new ArrayAdapter<String>(AddTourActivity.this, android.R.layout.simple_list_item_1,list );
+
+                    lvListview.setAdapter(arrayAdapter);
+                    lnTime.setVisibility(View.VISIBLE);
+                    blTime = false;
+                }else {
+                    lnTime.setVisibility(View.GONE);
+                    blTime = true;
+                }
             }
         });
-
-
-//        String shortcuts[] = getResources().getStringArray(R.array.province);
-//
-//        for(String abc: shortcuts){
-//            Log.d("abc",abc);
-//        }
     }
 
     @Override

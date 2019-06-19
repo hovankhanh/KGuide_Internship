@@ -43,7 +43,7 @@ public class TourDetailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         nRootView = inflater.inflate(R.layout.fragment_tour_guide, container, false);
         List<Tour> data = getListData();
-        final ListView listView = (ListView) nRootView.findViewById(R.id.lv_tour);
+        ListView listView = (ListView) nRootView.findViewById(R.id.lv_tour);
         adapter = new TourFragmentAdapter(getContext(),data);
         listView.setAdapter(adapter);
 

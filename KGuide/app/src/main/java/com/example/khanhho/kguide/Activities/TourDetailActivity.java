@@ -1,5 +1,6 @@
 package com.example.khanhho.kguide.Activities;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,9 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.khanhho.kguide.Model.Guide;
 import com.example.khanhho.kguide.Model.Tour;
@@ -23,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
+
 public class TourDetailActivity extends AppCompatActivity {
     private Tour tour;
     private ImageView imgImageTour;
@@ -32,7 +37,7 @@ public class TourDetailActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private SharedPreferences sharedPreferences;
     private Guide guide;
-
+    private int mYear, mMonth, mDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,10 +89,8 @@ public class TourDetailActivity extends AppCompatActivity {
 
                 }
             });
-
         }
-
-        saveTourData();
+        getTourData();
     }
 
     @Override
@@ -99,7 +102,7 @@ public class TourDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void saveTourData() {
+    private void getTourData() {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         DatabaseReference myRef = database.child("tour").child(key).child(idTour);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -125,4 +128,63 @@ public class TourDetailActivity extends AppCompatActivity {
 
         });
     }
+
+    public void Book(View view) {
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_WEEK);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+//                        edDayOfBirth.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                        String currentTime = String.valueOf(Calendar.getInstance().getTime());
+                        String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                        mAuth = FirebaseAuth.getInstance();
+                        final String curentUser = mAuth.getCurrentUser().getUid();
+                        FirebaseDatabase.getInstance().getReference().child("Booking").child(curentUser).child(key).child(idTour).child("currentTime").setValue(currentTime);
+                        FirebaseDatabase.getInstance().getReference().child("Booking").child(curentUser).child(key).child(idTour).child("status").setValue("Waiting cofirm");
+                        FirebaseDatabase.getInstance().getReference().child("Booking").child(curentUser).child(key).child(idTour).child("startDate").setValue(date);
+                        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                        DatabaseReference myRefTour = database.child("tour").child(key).child(idTour);
+                        myRefTour.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                tour = dataSnapshot.getValue(Tour.class);
+                                FirebaseDatabase.getInstance().getReference().child("Booking").child(curentUser).child(key).child(idTour).child("price").setValue(tour.getPrice());
+                                FirebaseDatabase.getInstance().getReference().child("Booking").child(curentUser).child(key).child(idTour).child("tourName").setValue(tour.getName().toString());
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+
+                        });
+                        DatabaseReference myRefGuide = database.child("Users").child(key);
+                        myRefGuide.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                guide = dataSnapshot.getValue(Guide.class);
+                                FirebaseDatabase.getInstance().getReference().child("Booking").child(curentUser).child(key).child(idTour).child("guideName").setValue(guide.getName().toString() +" "+guide.getSurname());
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+
+                        });
+                        Toast.makeText(TourDetailActivity.this, "You have booked succesfuly",
+                                Toast.LENGTH_SHORT).show();
+
+                    }
+                }, mYear, mMonth, mDay);
+        datePickerDialog.show();
+    }
+
+
 }

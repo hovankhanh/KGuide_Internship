@@ -72,7 +72,7 @@ public class EditProfileActivity extends AppCompatActivity {
         edPhoneNumber = (EditText) findViewById(R.id.edt_phonenumber);
         loaddingBar = new ProgressDialog(this);
 
-        UserProfileImageRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
+        UserProfileImageRef = FirebaseStorage.getInstance().getReference().child("User Image");
         DBf = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser().getUid();
