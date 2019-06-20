@@ -21,7 +21,7 @@ import java.util.Calendar;
 
 public class AddTourActivity extends AppCompatActivity {
     private Switch swGroup;
-    private LinearLayout lnTime = (LinearLayout) findViewById(R.id.ln_time), lnLanguage = (LinearLayout) findViewById(R.id.ln_language), lnAge, lnGroupSize, lnParentGroupSize;
+    private LinearLayout lnAge, lnGroupSize, lnParentGroupSize, lnTime,lnLanguage ;
     private TextView tvTime, tvTopic, tvLanguage, tvService, tvAge, tvGroupSize, tvCity;
     private Boolean blTime = true, blTopic = true, blLanguage = true, blService = true, blAge = true, blGroupSize = true;
     private ListView lvTopic, lvService, lvTime;
@@ -37,6 +37,8 @@ public class AddTourActivity extends AppCompatActivity {
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
+        lnTime = (LinearLayout) findViewById(R.id.ln_time);
+        lnLanguage = (LinearLayout) findViewById(R.id.ln_language);
         lnAge = findViewById(R.id.ln_age);
         lvService = (ListView) findViewById(R.id.lv_service);
         lvTopic = (ListView) findViewById(R.id.lv_topic);

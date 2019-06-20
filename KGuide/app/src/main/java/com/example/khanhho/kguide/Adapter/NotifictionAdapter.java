@@ -12,16 +12,17 @@ import com.example.khanhho.kguide.R;
 
 import java.util.List;
 
-public class HistoryTouristAdapter extends BaseAdapter {
+public class NotifictionAdapter extends BaseAdapter {
     private List<Booking> listData;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public HistoryTouristAdapter(Context context, List<Booking> listData) {
+    public NotifictionAdapter(Context context, List<Booking> listData) {
         this.context = context;
         this.listData = listData;
         layoutInflater = LayoutInflater.from(context);
     }
+
     @Override
     public int getCount() {
         return listData.size();
@@ -39,15 +40,13 @@ public class HistoryTouristAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+       ViewHolder holder;
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.item_history_tourist, null);
+            convertView = layoutInflater.inflate(R.layout.item_notification_guide, null);
             holder = new ViewHolder();
 
-            holder.tvNameTour = (TextView) convertView.findViewById(R.id.tv_tour_name);
-            holder.tvStartDate = (TextView) convertView.findViewById(R.id.tv_start_date);
-            holder.tvPrice = (TextView) convertView.findViewById(R.id.tv_price);
-            holder.tvStatus = (TextView) convertView.findViewById(R.id.tv_status);
+            holder.tvNameTourist = (TextView) convertView.findViewById(R.id.tv_Tourist_name);
+            holder.tvContent = (TextView) convertView.findViewById(R.id.tv_content);
             holder.tvCurentTime = (TextView) convertView.findViewById(R.id.tv_current_time);
             convertView.setTag(holder);
         } else {
@@ -55,16 +54,15 @@ public class HistoryTouristAdapter extends BaseAdapter {
         }
 
         Booking booking = this.listData.get(position);
-        holder.tvNameTour.setText("Tour's Name: "+booking.getTourName().toString());
+
         holder.tvCurentTime.setText(booking.getCurrentTime().toString());
-        holder.tvPrice.setText(booking.getPrice()+" VND ");
-        holder.tvStartDate.setText("Date Start: "+booking.getStartDate().toString());
-        holder.tvStatus.setText(booking.getStatus().toString());
+        holder.tvContent.setText("Your "+booking.getTourName()+ " tour was booked");
+        holder.tvNameTourist.setText(booking.getTouristName().toString());
 
         return convertView;
     }
-
     static class ViewHolder {
-        TextView tvNameTour, tvPrice, tvStatus, tvCurentTime, tvStartDate;
+        TextView tvNameTourist, tvCurentTime, tvContent;
     }
+
 }

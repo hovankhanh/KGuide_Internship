@@ -48,9 +48,9 @@ public class GuideDetailActivity extends AppCompatActivity {
         rbStarDetail = (RatingBar) findViewById(R.id.rb_star_detail);
         nVPTourist = (ViewPager) findViewById(R.id.vp_tourist);
 
-        setSupportActionBar(toolbar);
-        this.getSupportActionBar().setDisplayShowHomeEnabled(true);
-        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        setSupportActionBar(toolbar);
+//        this.getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
 

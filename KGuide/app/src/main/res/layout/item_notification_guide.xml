@@ -21,7 +21,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_status"
+                android:id="@+id/tv_Tourist_name"
                 android:textColor="#FFF"
                 android:layout_marginTop="5dp"
                 android:background="@color/colorPrimary"
@@ -37,38 +37,16 @@
                 android:text="Apr 07,2019, 8:18 AM"
                 android:gravity="right|center_vertical"/>
         </LinearLayout>
-        <View
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:background="@android:color/black" />
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            android:id="@+id/tv_tour_name"
-            android:textColor="@android:color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Name tour"/>
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            android:id="@+id/tv_start_date"
-            android:textColor="@android:color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="start date"
-            android:layout_marginBottom="10dp"/>
 
         <TextView
-            android:id="@+id/tv_price"
-            android:textColor="@color/colorPrimary"
-            android:layout_marginTop="-50dp"
-            android:layout_width="match_parent"
-            android:gravity="right"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/tv_content"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="134 VND"
-            />
+            android:text="your Name tour was booked"/>
+
     </LinearLayout>
 
 </LinearLayout>
