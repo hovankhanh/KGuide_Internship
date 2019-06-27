@@ -3,18 +3,28 @@ package com.example.khanhho.kguide.Model;
 public class Booking {
     private String currentTime, status, startDate, tourName, guideName,touristName;
     private int price;
+    private String touristAvatar;
 
     public Booking() {
     }
 
-    public Booking(String currentTime, String status, String startDate, int price, String tourName, String guideName, String touristName) {
+    public Booking(String currentTime, String status, String startDate, String tourName, String guideName, String touristName, int price, String touristAvatar) {
         this.currentTime = currentTime;
         this.status = status;
         this.startDate = startDate;
-        this.price = price;
         this.tourName = tourName;
         this.guideName = guideName;
         this.touristName = touristName;
+        this.price = price;
+        this.touristAvatar = touristAvatar;
+    }
+
+    public String getTouristAvatar() {
+        return touristAvatar;
+    }
+
+    public void setTouristAvatar(String touristAvatar) {
+        this.touristAvatar = touristAvatar;
     }
 
     public String getTouristName() {

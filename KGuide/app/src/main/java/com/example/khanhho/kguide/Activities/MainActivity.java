@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -207,5 +208,41 @@ public class MainActivity extends AppCompatActivity
         MenuItem searchItem = menu.findItem(R.id.action_search);
         searchItem.setOnActionExpandListener(onActionExpandListener);
         return true;
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d("quang", "on pause");
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d("quang", "on stop");
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d("quang", "on destroy");
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStart() {
+        Log.d("quang", "on start");
+        super.onStart();
+    }
+
+    @Override
+    protected void onRestart() {
+        Log.d("quang", "on restart");
+        super.onRestart();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d("quang", "on resume");
+        super.onResume();
     }
 }

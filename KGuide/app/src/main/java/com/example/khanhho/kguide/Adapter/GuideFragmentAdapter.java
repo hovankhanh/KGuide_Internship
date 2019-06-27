@@ -9,7 +9,7 @@ import com.example.khanhho.kguide.Fragment.HomeFragment;
 import com.example.khanhho.kguide.Fragment.MyTourFragment;
 
 public class GuideFragmentAdapter extends FragmentStatePagerAdapter {
-    private String listTab[] = {"Home","My Tour"};
+    private String listTab[] = {"My Tour","Notification"};
     private HomeFragment nHomeFragment;
     private MyTourFragment nMyTourFragment;
 
@@ -23,9 +23,10 @@ public class GuideFragmentAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int i) {
         if (i == 0){
-            return nHomeFragment;
-        }else if (i == 1){
             return nMyTourFragment;
+        }else if (i == 1){
+
+            return nHomeFragment;
         }else {
 
         }
