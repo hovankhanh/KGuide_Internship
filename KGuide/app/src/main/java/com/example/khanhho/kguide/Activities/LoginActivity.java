@@ -35,16 +35,18 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference DBf;
     String currentUser;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onStart() {
         super.onStart();
-
-        // Automatic login
-        if (mAuth.getCurrentUser() != null) {
+        sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+        if (sharedPreferences.getString("user", "").equals("guide")) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
-            finish();
+        } if (sharedPreferences.getString("user", "").equals("tourist")){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -164,4 +166,6 @@ public class LoginActivity extends AppCompatActivity {
                     });
         }
     }
+
+
 }

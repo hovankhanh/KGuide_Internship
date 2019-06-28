@@ -176,8 +176,12 @@ public class MainActivity extends AppCompatActivity
             startActivity(login);
 
         } else if (id == R.id.nav_slideshow) {
-            FirebaseAuth.getInstance().signOut();
+            SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("user", "Logout");
+            editor.commit();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
+
             finish();
 
         } else if (id == R.id.nav_manage) {

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.DetailNotificationActivity"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@android:color/holo_blue_bright"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_marginTop="-50dp"
+        android:layout_height="100dp"
+        android:background="@android:color/white"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_notification"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/tv_Tourist_name"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="khanh"/>
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" booked your tour with: "/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_marginLeft="5dp"
+        android:id="@+id/tv_start_date"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="date"/>
+    <TextView
+        android:layout_marginLeft="5dp"
+        android:id="@+id/tv_tour_name"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="tour name"/>
+
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:scaleType="fitXY"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:id="@+id/img_tour_image"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@android:color/holo_blue_bright" />
+    <TextView
+        android:id="@+id/tv_curent_time"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/circle_login_button"
+            android:gravity="center"
+            android:text="CONFIRM"
+            android:onClick="Confirm"
+            android:layout_marginBottom="5dp"/>
+    </RelativeLayout>
+</LinearLayout>

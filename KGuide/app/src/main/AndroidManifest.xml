@@ -14,7 +14,7 @@
         <activity android:name=".Activities.AddTourActivity" />
         <activity android:name=".Activities.DraffActivity" />
         <activity android:name=".Activities.MyTourTouristActivity" />
-        <activity android:name=".Activities.HistoryActivity" />
+        <activity android:name=".Activities.DetailNotificationActivity" />
         <activity android:name=".Activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

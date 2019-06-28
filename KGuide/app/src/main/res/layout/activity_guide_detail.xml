@@ -10,13 +10,13 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#15B4B8">
+        android:background="@android:color/holo_blue_bright">
     </android.support.v7.widget.Toolbar>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="250dp">
         <LinearLayout
-            android:background="#15B4B8"
+            android:background="@android:color/holo_blue_bright"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:orientation="vertical">

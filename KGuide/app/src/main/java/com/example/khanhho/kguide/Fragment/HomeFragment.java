@@ -1,7 +1,6 @@
 package com.example.khanhho.kguide.Fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.khanhho.kguide.Activities.DetailNotificationActivity;
 import com.example.khanhho.kguide.Adapter.NotifictionAdapter;
 import com.example.khanhho.kguide.Model.Booking;
 import com.example.khanhho.kguide.R;
@@ -33,7 +33,6 @@ public class HomeFragment extends Fragment {
     private FirebaseAuth mAuth;
     private Booking booking;
     private List<String> idTourist, idGuide, idTour;
-    int pos, count = 0, size = 0;
     List<Booking> data = new ArrayList<>();
     @Nullable
     @Override
@@ -51,30 +50,14 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                pos = position;
-                alertView("confirm");
+            Intent intent = new Intent(getContext(), DetailNotificationActivity.class);
+            intent.putExtra("idTourist",idTourist.get(position));
+            intent.putExtra("idGuide", idGuide.get(position));
+            intent.putExtra("idTour", idTour.get(position));
+            startActivity(intent);
             }
         });
         return nRootView;
-    }
-
-    private void alertView(String message) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-        dialog.setTitle("Confirm")
-                .setMessage(message)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialoginterface, int i) {
-                        Log.d("kiemtra","ahihi");
-                        FirebaseDatabase.getInstance().getReference().child("Booking").child(idTourist.get(pos)).child(idGuide.get(pos)).child(idTour.get(pos)).child("status").setValue("Comming Tour");
-                    }
-                }).setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                FirebaseDatabase.getInstance().getReference().child("Booking").child(idTourist.get(pos)).child(idGuide.get(pos)).child(idTour.get(pos)).child("status").setValue("unaccepted");
-                dialog.dismiss();
-            }
-        }).show();
     }
 
     private List<Booking> getListData() {

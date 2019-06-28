@@ -1,6 +1,7 @@
 package com.example.khanhho.kguide.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,12 +56,17 @@ public class HistoryTouristAdapter extends BaseAdapter {
         }
 
         Booking booking = this.listData.get(position);
+
+        if (booking.getStatus().toString().equals("Waiting cofirm")){
+            holder.tvStatus.setBackgroundColor(Color.RED);
+        }else if (booking.getStatus().toString().equals("unaccepted")){
+            holder.tvStatus.setBackgroundColor(Color.BLUE);
+        }
         holder.tvNameTour.setText("Tour's Name: "+booking.getTourName().toString());
         holder.tvCurentTime.setText(booking.getCurrentTime().toString());
         holder.tvPrice.setText(booking.getPrice()+" VND ");
         holder.tvStartDate.setText("Date Start: "+booking.getStartDate().toString());
-        holder.tvStatus.setText(booking.getStatus().toString());
-
+        holder.tvStatus.setText("  "+booking.getStatus().toString()+"  ");
         return convertView;
     }
 

@@ -1,6 +1,7 @@
 package com.example.khanhho.kguide.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -22,12 +23,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TouristProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private SharedPreferences sharedPreferences;
     private Tourist tourist;
     private String currentUser;
     private TextView tvName, tvGender, tvCountry, tvLanguage, tvDayOfBirth,
             tvAddress, tvJobPosition, tvPhoneNumber, tvEmail;
     private TextView tvEdit;
     CircleImageView civAvatar;
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +51,17 @@ public class TouristProfileActivity extends AppCompatActivity {
         tvName = (TextView) findViewById(R.id.tv_name_tourist);
         civAvatar = (CircleImageView) findViewById(R.id.civ_avatar_tourist);
 
+        sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+        if (sharedPreferences.getString("user", "").equals("guide")) {
+           Intent intent = getIntent();
+           key = intent.getStringExtra("key");
+           tvEdit.setVisibility(View.GONE);
+        }else {
+            key = currentUser;
+        }
+
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference myRef = database.child("Users").child(currentUser);
+        DatabaseReference myRef = database.child("Users").child(key);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

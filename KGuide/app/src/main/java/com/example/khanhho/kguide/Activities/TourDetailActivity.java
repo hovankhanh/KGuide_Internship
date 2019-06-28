@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.khanhho.kguide.Model.Booking;
 import com.example.khanhho.kguide.Model.Guide;
 import com.example.khanhho.kguide.Model.Tour;
 import com.example.khanhho.kguide.Model.Tourist;
@@ -44,6 +45,7 @@ public class TourDetailActivity extends AppCompatActivity {
     private Guide guide;
     private int mYear, mMonth, mDay;
     private Tourist tourist;
+    private Booking booking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +98,36 @@ public class TourDetailActivity extends AppCompatActivity {
                 }
             });
         }
+
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference myRef1 = database.child("Booking");
+        myRef1.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot abc : messageSnapshot.getChildren()) {
+                        if (abc.getKey().equals(key)){
+                            for (DataSnapshot ab : abc.getChildren()) {
+                                if (ab.getKey().equals(idTour)){
+                                    booking = ab.getValue(Booking.class);
+//                                    if (!booking.getStatus().toString().equals("unaccepted")){
+//                                        lnBook.setVisibility(View.GONE);
+                                        Log.d("khanhcute", ab.getKey());
+                                        Log.d("khanhcute", booking.getStatus().toString());
+//                                        break;
+//                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
         getTourData();
     }
 
@@ -130,8 +162,8 @@ public class TourDetailActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-            }
 
+            }
         });
     }
 
@@ -190,7 +222,6 @@ public class TourDetailActivity extends AppCompatActivity {
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
                             }
-
                         });
 
                         String guideName = guide.getName()+" "+guide.getSurname();

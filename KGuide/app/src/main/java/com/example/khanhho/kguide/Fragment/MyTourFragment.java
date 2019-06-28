@@ -1,5 +1,7 @@
 package com.example.khanhho.kguide.Fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyTourFragment extends Fragment {
+public class MyTourFragment extends Fragment implements MytourAdapter.OnClickListener{
     private View nRootView;
     private String currentUser;
     private FirebaseAuth mAuth;
@@ -42,7 +44,7 @@ public class MyTourFragment extends Fragment {
         currentUser = mAuth.getCurrentUser().getUid();
         List<Tour> data = getListData();
         final ListView listView = (ListView) nRootView.findViewById(R.id.lv_mytour);
-        adapter = new MytourAdapter(getContext(),data);
+        adapter = new MytourAdapter(getContext(),data, this);
         listView.setAdapter(adapter);
 
         // Khi người dùng click vào các ListItem
@@ -88,5 +90,32 @@ public class MyTourFragment extends Fragment {
         });
 
         return list;
+    }
+
+    @Override
+    public void onEditClick(int pos) {
+        Intent intent = new Intent(getContext(), AddTourActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onDeleteClick(int pos) {
+        alertView("Are your sure to delete?");
+    }
+
+    private void alertView(String message) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+        dialog.setTitle("Confirm")
+                .setMessage(message)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialoginterface, int i) {
+
+                    }
+                }).setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).show();
     }
 }

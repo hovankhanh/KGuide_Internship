@@ -18,11 +18,13 @@ public class MytourAdapter extends BaseAdapter {
     private List<Tour> listData;
     private LayoutInflater layoutInflater;
     private Context context;
+    OnClickListener mListener;
 
-    public MytourAdapter(Context context, List<Tour> listData) {
+    public MytourAdapter(Context context, List<Tour> listData, OnClickListener list) {
         this.context = context;
         this.listData = listData;
         layoutInflater = LayoutInflater.from(context);
+        mListener=list;
     }
 
     @Override
@@ -41,13 +43,15 @@ public class MytourAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.item_my_tour, null);
             holder = new ViewHolder();
             holder.imgMyTour = (ImageView) convertView.findViewById(R.id.img_image_mytour);
             holder.tvNameMyTour = (TextView) convertView.findViewById(R.id.tv_name_mytour);
+            holder.btnDelete = convertView.findViewById(R.id.img_delete);
+            holder.btnEDit = convertView.findViewById(R.id.img_edit);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -58,6 +62,21 @@ public class MytourAdapter extends BaseAdapter {
         String getAvatarImage = tour.getImageTour().toString();
         Picasso.get().load(getAvatarImage).into(holder.imgMyTour);
 
+        holder.btnEDit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mListener!=null)
+                    mListener.onEditClick(position);
+            }
+        });
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mListener!=null)
+                    mListener.onDeleteClick(position);
+            }
+        });
+
 
 
         return convertView;
@@ -66,5 +85,12 @@ public class MytourAdapter extends BaseAdapter {
     static class ViewHolder {
         ImageView imgMyTour;
         TextView tvNameMyTour;
+        ImageView btnEDit, btnDelete;
+    }
+
+    public interface OnClickListener{
+        void onEditClick(int pos);
+        void onDeleteClick(int pos);
+
     }
 }
