@@ -12,11 +12,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +34,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.example.khanhho.kguide.R.id.nav_notification;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,6 +52,8 @@ public class MainActivity extends AppCompatActivity
     private CircleImageView civAvatar;
     private LinearLayout lnProfile;
     SharedPreferences sharedPreferences;
+    private SearchView searchView;
+    private DatabaseReference reference;
 
 
     @Override
@@ -60,6 +68,7 @@ public class MainActivity extends AppCompatActivity
         currentUser = mAuth.getCurrentUser().getUid();
         setSupportActionBar(toolbar);
 
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -67,6 +76,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerLayout = navigationView.getHeaderView(0);
+
         tvUserName = (TextView) headerLayout.findViewById(R.id.tv_username);
         tvStatus = (TextView) headerLayout.findViewById(R.id.tv_status);
         civAvatar = (CircleImageView) headerLayout.findViewById(R.id.civ_avatar);
@@ -96,7 +106,28 @@ public class MainActivity extends AppCompatActivity
                 }
             });
             ViewGuideFragment();
-        }else {
+        }else if (sharedPreferences.getString("user", "").equals("tourist1")){
+            reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser);
+            Intent intent = getIntent();
+            Map map = new HashMap();
+            map.put("email",intent.getStringExtra("email"));
+            map.put("name",intent.getStringExtra("name"));
+            map.put("surname","");
+            map.put("status", "tourist");
+            map.put("gender", "");
+            map.put("country", "");
+            map.put("address", "");
+            map.put("dayofbirth", "");
+            map.put("phonenumber", "");
+            map.put("jobposition", "");
+            map.put("language", "");
+            map.put("image", "https://firebasestorage.googleapis.com/v0/b/kguide-47a11.appspot.com/o/User%20Image%2Ficon_avatar_editprofile.png?alt=media&token=295f20da-8d3b-4bc5-a0d4-e22e94c70aa7");
+            reference.updateChildren(map);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("user", "tourist");
+            editor.commit();
+        }
+        else {
             ViewTouristFragment();
             final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
             DatabaseReference myRef = database.child("Users");
@@ -133,7 +164,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-
 
 
     private void ViewTouristFragment(){
@@ -181,10 +211,11 @@ public class MainActivity extends AppCompatActivity
             editor.putString("user", "Logout");
             editor.commit();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
-
+            FirebaseAuth.getInstance().signOut();
             finish();
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == nav_notification) {
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -192,9 +223,30 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu,menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu,menu);
+        // Associate searchable configuration with the SearchView
+//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//
+//        SearchView searchView = (SearchView) menu.findItem(R.id.action_search);
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+////                // filter recycler view when query submitted
+////                mAdapter.getFilter().filter(query);
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String query) {
+//                Log.d("khanh", "huhu");
+//                return true;
+//            }
+//        });
         MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
@@ -210,43 +262,9 @@ public class MainActivity extends AppCompatActivity
         };
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
+
         searchItem.setOnActionExpandListener(onActionExpandListener);
         return true;
     }
 
-    @Override
-    protected void onPause() {
-        Log.d("quang", "on pause");
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        Log.d("quang", "on stop");
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log.d("quang", "on destroy");
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onStart() {
-        Log.d("quang", "on start");
-        super.onStart();
-    }
-
-    @Override
-    protected void onRestart() {
-        Log.d("quang", "on restart");
-        super.onRestart();
-    }
-
-    @Override
-    protected void onResume() {
-        Log.d("quang", "on resume");
-        super.onResume();
-    }
 }

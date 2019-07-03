@@ -1,17 +1,17 @@
 package com.example.khanhho.kguide.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.khanhho.kguide.Model.Tourist;
 import com.example.khanhho.kguide.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -84,6 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerUser(final String username, String email, String password) {
+        Log.d("check", email+"  "+password);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -98,12 +99,6 @@ public class RegisterActivity extends AppCompatActivity {
                             String email = edt_email.getText().toString();
 
                             reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser);
-
-//                            HashMap<String, String> hashMap = new HashMap<>();
-////                            hashMap.put("id", userId);
-////                            hashMap.put("username", username);
-
-
                             Map map = new HashMap();
                             map.put("email",email);
                             map.put("name",name);
@@ -116,7 +111,7 @@ public class RegisterActivity extends AppCompatActivity {
                             map.put("phonenumber", "");
                             map.put("jobposition", "");
                             map.put("language", "");
-                            map.put("image", "");
+                            map.put("image", "https://firebasestorage.googleapis.com/v0/b/kguide-47a11.appspot.com/o/User%20Image%2Ficon_avatar_editprofile.png?alt=media&token=295f20da-8d3b-4bc5-a0d4-e22e94c70aa7");
                             reference.updateChildren(map);
                             Toast.makeText(RegisterActivity.this, "Successful Registration!",
                                     Toast.LENGTH_SHORT).show();
@@ -124,7 +119,6 @@ public class RegisterActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             finish();
-
                         } else {
                             Toast.makeText(RegisterActivity.this, "That email is already taken",
                                     Toast.LENGTH_SHORT).show();

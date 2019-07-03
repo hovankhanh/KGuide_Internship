@@ -79,7 +79,7 @@ public class EditProfileActivity extends AppCompatActivity {
         nAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseDatabase.getInstance().getReference().child("Users").child("currentUser").child("status").setValue("tourist");
+
                 Intent galleryIntent = new Intent();
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
@@ -228,10 +228,9 @@ public class EditProfileActivity extends AppCompatActivity {
                 edJobPosition.setText(tourist.getJobposition().toString());
                 edPhoneNumber.setText(tourist.getPhonenumber().toString());
 
-                if (!tourist.getStatus().toString().equals("newtourist")) {
-                    String getAvatarImage = tourist.getImage().toString();
-                    Picasso.get().load(getAvatarImage).into(nAvatar);
-                }
+                String getAvatarImage = tourist.getImage().toString();
+                Picasso.get().load(getAvatarImage).into(nAvatar);
+
             }
 
             @Override
@@ -277,10 +276,4 @@ public class EditProfileActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    @Override
-    protected void onStop() {
-        Log.d("testhoima","haha");
-        FirebaseDatabase.getInstance().getReference().child("Users").child("currentUser").child("status").setValue("tourist");
-        super.onStop();
-    }
 }

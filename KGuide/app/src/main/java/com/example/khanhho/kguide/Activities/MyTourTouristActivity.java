@@ -1,15 +1,16 @@
 package com.example.khanhho.kguide.Activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.khanhho.kguide.Adapter.HistoryTouristAdapter;
 import com.example.khanhho.kguide.Model.Booking;
@@ -29,8 +30,8 @@ public class MyTourTouristActivity extends AppCompatActivity {
     private String currentUser;
     private FirebaseAuth mAuth;
     private Booking booking;
-    private TextView tvStatus;
     private SharedPreferences sharedPreferences;
+    private List idTourist, idGuide, idTour, idBooking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,24 @@ public class MyTourTouristActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+                if (sharedPreferences.getString("user", "").equals("guide")) {
+                    Intent intent = new Intent(MyTourTouristActivity.this, DetailNotificationActivity.class);
+                    intent.putExtra("idTourist", String.valueOf(idTourist.get(position)));
+                    intent.putExtra("key", "history guide");
+                    intent.putExtra("idGuide", String.valueOf(idGuide.get(position)));
+                    intent.putExtra("idTour", String.valueOf(idTour.get(position)));
+                    intent.putExtra("idBooking", String.valueOf(idBooking.get(position)));
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(MyTourTouristActivity.this, DetailNotificationActivity.class);
+                    intent.putExtra("idTourist", currentUser);
+                    intent.putExtra("key", "history tourist");
+                    intent.putExtra("idGuide", String.valueOf(idGuide.get(position)));
+                    intent.putExtra("idTour", String.valueOf(idTour.get(position)));
+                    intent.putExtra("idBooking", String.valueOf(idBooking.get(position)));
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -70,24 +89,33 @@ public class MyTourTouristActivity extends AppCompatActivity {
 
     private  List<Booking> getListData() {
         final List<Booking> list = new ArrayList<Booking>();
+        idTourist = new ArrayList<>();
+        idGuide = new ArrayList<>();
+        idTour = new ArrayList<>();
+        idBooking = new ArrayList<>();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser().getUid();
         sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
-
         if (sharedPreferences.getString("user", "").equals("guide")) {
             DatabaseReference database = FirebaseDatabase.getInstance().getReference();
             DatabaseReference myRef = database.child("Booking");
             myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    list.clear();
                     for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
                         for (DataSnapshot abc : messageSnapshot.getChildren()) {
-                            for (DataSnapshot ab : abc.getChildren()) {
-                                String test = abc.getKey();
-                                if (test.equals(currentUser)){
-                                    booking = ab.getValue(Booking.class);
-                                    if (booking.getStatus().toString().equals("Done")) {
-                                        list.add(booking);
+                            if (abc.getKey().equals(currentUser)){
+                                for (DataSnapshot ab : abc.getChildren()) {
+                                    for (DataSnapshot book : ab.getChildren()) {
+                                        booking = book.getValue(Booking.class);
+                                        if (booking.getStatus().toString().equals("Done") || booking.getStatus().toString().equals("Comming Tour")) {
+                                            list.add(booking);
+                                            idGuide.add(abc.getKey());
+                                            idTour.add(ab.getKey());
+                                            idTourist.add(messageSnapshot.getKey());
+                                            idBooking.add(book.getKey());
+                                        }
                                     }
                                 }
                             }
@@ -101,15 +129,22 @@ public class MyTourTouristActivity extends AppCompatActivity {
                 }
             });
         }else {
+            Log.d("Comming tour ", "1004");
             DatabaseReference database = FirebaseDatabase.getInstance().getReference();
             DatabaseReference myRef = database.child("Booking").child(currentUser);
-            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    list.clear();
                     for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
-                        for (DataSnapshot abc : messageSnapshot.getChildren()) {
-                            booking = abc.getValue(Booking.class);
-                            list.add(booking);
+                        for (DataSnapshot tour : messageSnapshot.getChildren()) {
+                            for (DataSnapshot book : tour.getChildren()) {
+                                booking = book.getValue(Booking.class);
+                                idGuide.add(messageSnapshot.getKey());
+                                idTour.add(tour.getKey());
+                                idBooking.add(book.getKey());
+                                list.add(booking);
+                            }
                         }
                     }
                     adapter.notifyDataSetChanged();
@@ -118,10 +153,11 @@ public class MyTourTouristActivity extends AppCompatActivity {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                 }
-
             });
         }
 
         return list;
     }
+
+
 }

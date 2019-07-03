@@ -53,7 +53,7 @@ public class RecycleTourAdapter extends RecyclerView.Adapter<RecycleTourAdapter.
         }
 
         viewHolder.tvTourName.setText(tour.getName());
-        viewHolder.tvPrice.setText(tour.getPrice()+" VND");
+        viewHolder.tvPrice.setText(tour.getPrice()+" $");
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

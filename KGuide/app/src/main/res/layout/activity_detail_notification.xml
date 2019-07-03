@@ -33,12 +33,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="khanh"/>
+
         <TextView
+            android:id="@+id/tv_content"
             android:layout_marginLeft="5dp"
             android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" booked your tour with: "/>
+            android:text="you booked tour of "/>
+        <TextView
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/tv_guide_name"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="khanh"/>
+
 
     </LinearLayout>
 
@@ -89,6 +101,18 @@
             android:gravity="center"
             android:text="CONFIRM"
             android:onClick="Confirm"
+            android:layout_marginBottom="5dp"/>
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/circle_login_button"
+            android:gravity="center"
+            android:text="Cancel"
+            android:onClick="Cancel"
             android:layout_marginBottom="5dp"/>
     </RelativeLayout>
 </LinearLayout>

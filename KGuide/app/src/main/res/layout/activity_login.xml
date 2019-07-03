@@ -105,19 +105,24 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <Button
+                android:id="@+id/btn_facebook_login"
+                android:onClick="FacebookLogin"
                 android:textColor="#FFF"
                 android:textSize="20dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/icon_facebook"/>/>
+                android:background="@drawable/icon_facebook"
+                />
 
             <Button
+                android:id="@+id/btn_gmail_login"
                 android:layout_marginLeft="45dp"
                 android:textColor="#FFF"
                 android:textSize="20dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/icon_gmail"/>
+                android:background="@drawable/icon_gmail"
+                android:onClick="GmailLogin"/>
         </LinearLayout>
 
     </LinearLayout>

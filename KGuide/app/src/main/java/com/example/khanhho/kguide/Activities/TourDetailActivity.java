@@ -33,6 +33,8 @@ import com.squareup.picasso.Picasso;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TourDetailActivity extends AppCompatActivity {
     private Tour tour;
@@ -46,12 +48,12 @@ public class TourDetailActivity extends AppCompatActivity {
     private int mYear, mMonth, mDay;
     private Tourist tourist;
     private Booking booking;
+    private DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tour_detail);
-
 
         tvAvailable = (TextView) findViewById(R.id.tv_available);
         tvPriceBook = (TextView) findViewById(R.id.tv_price_book);
@@ -69,10 +71,10 @@ public class TourDetailActivity extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 //        this.getSupportActionBar().setDisplayShowHomeEnabled(true);
 //        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mAuth = FirebaseAuth.getInstance();
         sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
 
         if (sharedPreferences.getString("user", "").equals("guide")) {
-            mAuth = FirebaseAuth.getInstance();
             key = mAuth.getCurrentUser().getUid();
             lnBook.setVisibility(View.GONE);
             tvNameGuide.setVisibility(View.GONE);
@@ -80,6 +82,7 @@ public class TourDetailActivity extends AppCompatActivity {
             Intent intent = getIntent();
             idTour = intent.getStringExtra("id");
         } else {
+            lnBook.setVisibility(View.VISIBLE);
             Intent intent = getIntent();
             key = intent.getStringExtra("key");
             idTour = intent.getStringExtra("id");
@@ -98,32 +101,34 @@ public class TourDetailActivity extends AppCompatActivity {
                 }
             });
         }
-
+//        hide button
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         DatabaseReference myRef1 = database.child("Booking");
         myRef1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
+                    if (messageSnapshot.getKey().equals(mAuth.getCurrentUser().getUid())){
                     for (DataSnapshot abc : messageSnapshot.getChildren()) {
-                        if (abc.getKey().equals(key)){
+                        if (abc.getKey().equals(key))
                             for (DataSnapshot ab : abc.getChildren()) {
                                 if (ab.getKey().equals(idTour)){
-                                    booking = ab.getValue(Booking.class);
-//                                    if (!booking.getStatus().toString().equals("unaccepted")){
-//                                        lnBook.setVisibility(View.GONE);
-                                        Log.d("khanhcute", ab.getKey());
-                                        Log.d("khanhcute", booking.getStatus().toString());
-//                                        break;
-//                                    }
+                                    for (DataSnapshot book : ab.getChildren()) {
+                                        booking = book.getValue(Booking.class);
+                                        if (booking.getStatus().toString().equals("unaccepted") || booking.getStatus().toString().equals("Tourist Cancel")
+                                                || booking.getStatus().toString().equals("Cancle")) {
+                                            lnBook.setVisibility(View.VISIBLE);
+                                            Log.d("khanh", "ok0");
+                                        }else {
+                                            lnBook.setVisibility(View.GONE);
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
@@ -147,7 +152,6 @@ public class TourDetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 tour = dataSnapshot.getValue(Tour.class);
-                Log.d("abc", tour.getCity().toString());
                 tvPrice.setText(tour.getPrice() + " VND");
                 tvPriceBook.setText(tour.getPrice() + " VND");
                 tvDescription.setText(tour.getDescription().toString());
@@ -178,11 +182,7 @@ public class TourDetailActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-
-//                        edDayOfBirth.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-
                         String currentTime = DateFormat.getDateTimeInstance().format(new Date());;
-
                         String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
                         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
                         DatabaseReference myRefTour = database.child("tour").child(key).child(idTour);
@@ -207,7 +207,6 @@ public class TourDetailActivity extends AppCompatActivity {
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
                             }
-
                         });
 
                         mAuth = FirebaseAuth.getInstance();
@@ -238,16 +237,21 @@ public class TourDetailActivity extends AppCompatActivity {
                 .setMessage(message)
                 .setPositiveButton("Book", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialoginterface, int i) {
-                    FirebaseDatabase.getInstance().getReference().child("Booking").child(currentUser).child(key).child(idTour).child("currentTime").setValue(currentTime);
-                    FirebaseDatabase.getInstance().getReference().child("Booking").child(currentUser).child(key).child(idTour).child("status").setValue("Waiting cofirm");
-                    FirebaseDatabase.getInstance().getReference().child("Booking").child(currentUser).child(key).child(idTour).child("startDate").setValue(date);
-                    FirebaseDatabase.getInstance().getReference().child("Booking").child(currentUser).child(key).child(idTour).child("guideName").setValue(guideName);
-                    FirebaseDatabase.getInstance().getReference().child("Booking").child(currentUser).child(key).child(idTour).child("price").setValue(tour.getPrice());
-                    FirebaseDatabase.getInstance().getReference().child("Booking").child(currentUser).child(key).child(idTour).child("tourName").setValue(tour.getName().toString());
-                    FirebaseDatabase.getInstance().getReference().child("Booking").child(currentUser).child(key).child(idTour).child("touristName").setValue(tourist.getName() +" "+tourist.getSurname());
-                    FirebaseDatabase.getInstance().getReference().child("Booking").child(currentUser).child(key).child(idTour).child("touristAvatar").setValue(tourist.getImage());
+                        reference = FirebaseDatabase.getInstance().getReference("Booking").child(currentUser).child(key).child(idTour).child(currentTime);
+                        Map map = new HashMap();
+                        map.put("currentTime",currentTime);
+                        map.put("status","Waiting cofirm");
+                        map.put("startDate",date);
+                        map.put("guideName", "guideName");
+                        map.put("price", tour.getPrice());
+                        map.put("tourName", tour.getName().toString());
+                        map.put("touristName", tourist.getName() +" "+tourist.getSurname());
+                        map.put("touristAvatar", tourist.getImage());
+                        reference.updateChildren(map);
                     Toast.makeText(TourDetailActivity.this, "You have booked succesfuly",
                                 Toast.LENGTH_SHORT).show();
+                    finish();
+                    startActivity(getIntent());
                     }
                 }).setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
             @Override

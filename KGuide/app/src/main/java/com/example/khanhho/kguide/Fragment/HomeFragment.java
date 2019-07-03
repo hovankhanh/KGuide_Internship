@@ -32,7 +32,7 @@ public class HomeFragment extends Fragment {
     private String currentUser;
     private FirebaseAuth mAuth;
     private Booking booking;
-    private List<String> idTourist, idGuide, idTour;
+    private List<String> idTourist, idGuide, idTour, idBooking;
     List<Booking> data = new ArrayList<>();
     @Nullable
     @Override
@@ -51,9 +51,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
             Intent intent = new Intent(getContext(), DetailNotificationActivity.class);
+            intent.putExtra("key","notification");
             intent.putExtra("idTourist",idTourist.get(position));
             intent.putExtra("idGuide", idGuide.get(position));
             intent.putExtra("idTour", idTour.get(position));
+                intent.putExtra("idBooking", idBooking.get(position));
             startActivity(intent);
             }
         });
@@ -67,6 +69,7 @@ public class HomeFragment extends Fragment {
         idTourist = new ArrayList<>();
         idGuide = new ArrayList<>();
         idTour = new ArrayList<>();
+        idBooking = new ArrayList<>();
         Log.d("kiemtra","ahihi1");
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -81,13 +84,16 @@ public class HomeFragment extends Fragment {
                         for (DataSnapshot ab : abc.getChildren()) {
                             String test = abc.getKey();
                             if (test.equals(currentUser)){
-                                booking = ab.getValue(Booking.class);
-                                if (booking.getStatus().toString().equals("Waiting cofirm")) {
-                                    idTourist.add(messageSnapshot.getKey());
-                                    idGuide.add(abc.getKey());
-                                    idTour.add(ab.getKey());
-                                    list.add(booking);
-                                    Log.d("kiemtra","ahihi2");
+                                for (DataSnapshot book : ab.getChildren()) {
+                                    booking = book.getValue(Booking.class);
+                                    if (booking.getStatus().toString().equals("Waiting cofirm")) {
+                                        idTourist.add(messageSnapshot.getKey());
+                                        idGuide.add(abc.getKey());
+                                        idTour.add(ab.getKey());
+                                        idBooking.add(book.getKey());
+                                        list.add(booking);
+                                        Log.d("kiemtra", "ahihi2");
+                                    }
                                 }
                             }
                         }
