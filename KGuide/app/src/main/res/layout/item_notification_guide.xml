@@ -41,7 +41,7 @@
             android:id="@+id/tv_current_time"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="bottom"
+            android:gravity="bottom|right"
             android:text="khanh"
             />
 

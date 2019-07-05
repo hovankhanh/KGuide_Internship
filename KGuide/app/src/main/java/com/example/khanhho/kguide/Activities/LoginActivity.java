@@ -33,6 +33,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = null ;
@@ -244,7 +247,7 @@ public class LoginActivity extends AppCompatActivity {
 
             final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
             DatabaseReference myRef = database.child("Users");
-            myRef.addValueEventListener(new ValueEventListener() {
+            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
@@ -263,13 +266,26 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                     }else {
                         Log.d("khanhahha", "edit");
+                        reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser);
+                        Map map = new HashMap();
+                        map.put("email",email);
+                        map.put("name",name);
+                        map.put("surname","");
+                        map.put("status", "tourist");
+                        map.put("gender", "");
+                        map.put("country", "");
+                        map.put("address", "");
+                        map.put("dayofbirth", "");
+                        map.put("phonenumber", "");
+                        map.put("jobposition", "");
+                        map.put("language", "");
+                        map.put("image", "https://firebasestorage.googleapis.com/v0/b/kguide-47a11.appspot.com/o/User%20Image%2Ficon_avatar_editprofile.png?alt=media&token=295f20da-8d3b-4bc5-a0d4-e22e94c70aa7");
+                        reference.updateChildren(map);
                         SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("user", "tourist1");
+                        editor.putString("user", "tourist");
                         editor.commit();
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.putExtra("email",email);
-                        intent.putExtra("name",name);
+                        Intent intent = new Intent(LoginActivity.this, EditProfileActivity.class);
                         startActivity(intent);
                     }
                 }

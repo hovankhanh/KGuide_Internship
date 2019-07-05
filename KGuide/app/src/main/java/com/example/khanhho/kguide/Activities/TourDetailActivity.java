@@ -2,11 +2,14 @@ package com.example.khanhho.kguide.Activities;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -22,6 +25,7 @@ import com.example.khanhho.kguide.Model.Guide;
 import com.example.khanhho.kguide.Model.Tour;
 import com.example.khanhho.kguide.Model.Tourist;
 import com.example.khanhho.kguide.R;
+import com.example.khanhho.kguide.Ultil.App;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,11 +53,13 @@ public class TourDetailActivity extends AppCompatActivity {
     private Tourist tourist;
     private Booking booking;
     private DatabaseReference reference;
-
+    private NotificationManagerCompat notificationManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tour_detail);
+
+        notificationManager = NotificationManagerCompat.from(this);
 
         tvAvailable = (TextView) findViewById(R.id.tv_available);
         tvPriceBook = (TextView) findViewById(R.id.tv_price_book);
@@ -152,8 +158,8 @@ public class TourDetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 tour = dataSnapshot.getValue(Tour.class);
-                tvPrice.setText(tour.getPrice() + " VND");
-                tvPriceBook.setText(tour.getPrice() + " VND");
+                tvPrice.setText(tour.getPrice() + " $ ");
+                tvPriceBook.setText(tour.getPrice() + " $ ");
                 tvDescription.setText(tour.getDescription().toString());
                 tvTopic.setText(tour.getTopic().toString());
                 tvService.setText(tour.getService().toString());
@@ -242,7 +248,7 @@ public class TourDetailActivity extends AppCompatActivity {
                         map.put("currentTime",currentTime);
                         map.put("status","Waiting cofirm");
                         map.put("startDate",date);
-                        map.put("guideName", "guideName");
+                        map.put("guideName", guideName);
                         map.put("price", tour.getPrice());
                         map.put("tourName", tour.getName().toString());
                         map.put("touristName", tourist.getName() +" "+tourist.getSurname());
@@ -250,6 +256,7 @@ public class TourDetailActivity extends AppCompatActivity {
                         reference.updateChildren(map);
                     Toast.makeText(TourDetailActivity.this, "You have booked succesfuly",
                                 Toast.LENGTH_SHORT).show();
+                        sendOnChannel1();
                     finish();
                     startActivity(getIntent());
                     }
@@ -261,4 +268,20 @@ public class TourDetailActivity extends AppCompatActivity {
         }).show();
     }
 
+    public void sendOnChannel1(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, App.CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.icon_edit)
+                .setContentTitle("My notification")
+                .setContentText("Hello World!")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                // Set the intent that will fire when the user taps the notification
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+            notificationManager.notify(1, builder.build());
+    }
 }

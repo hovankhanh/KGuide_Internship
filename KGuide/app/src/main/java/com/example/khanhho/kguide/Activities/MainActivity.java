@@ -34,12 +34,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.example.khanhho.kguide.R.id.nav_notification;
+import static com.example.khanhho.kguide.R.id.nav_setting;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
@@ -75,6 +73,7 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
         View headerLayout = navigationView.getHeaderView(0);
 
         tvUserName = (TextView) headerLayout.findViewById(R.id.tv_username);
@@ -86,6 +85,7 @@ public class MainActivity extends AppCompatActivity
         sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
 
         if (sharedPreferences.getString("user", "").equals("guide")){
+            navigationView.getMenu().findItem(R.id.nav_notification).setVisible(false);
             final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
             DatabaseReference myRef = database.child("Users");
             myRef.child(currentUser).addValueEventListener(new ValueEventListener() {
@@ -106,28 +106,8 @@ public class MainActivity extends AppCompatActivity
                 }
             });
             ViewGuideFragment();
-        }else if (sharedPreferences.getString("user", "").equals("tourist1")){
-            reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser);
-            Intent intent = getIntent();
-            Map map = new HashMap();
-            map.put("email",intent.getStringExtra("email"));
-            map.put("name",intent.getStringExtra("name"));
-            map.put("surname","");
-            map.put("status", "tourist");
-            map.put("gender", "");
-            map.put("country", "");
-            map.put("address", "");
-            map.put("dayofbirth", "");
-            map.put("phonenumber", "");
-            map.put("jobposition", "");
-            map.put("language", "");
-            map.put("image", "https://firebasestorage.googleapis.com/v0/b/kguide-47a11.appspot.com/o/User%20Image%2Ficon_avatar_editprofile.png?alt=media&token=295f20da-8d3b-4bc5-a0d4-e22e94c70aa7");
-            reference.updateChildren(map);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("user", "tourist");
-            editor.commit();
-        }
-        else {
+        } else {
+            navigationView.getMenu().findItem(R.id.nav_history).setTitle("My tour");
             ViewTouristFragment();
             final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
             DatabaseReference myRef = database.child("Users");
@@ -172,6 +152,7 @@ public class MainActivity extends AppCompatActivity
         TabLayout tablayout = (TabLayout) findViewById(R.id.tablayout);
         tablayout.setupWithViewPager(nVPTourist);
     }
+
     private void ViewGuideFragment(){
         GuideFragmentAdapter myPagerAdapter = new GuideFragmentAdapter(getSupportFragmentManager());
         nVPTourist.setAdapter(myPagerAdapter);
@@ -198,14 +179,14 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_help) {
 
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_history) {
             Intent login = new Intent(this, MyTourTouristActivity.class);
             startActivity(login);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_logout) {
             SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("user", "Logout");
@@ -215,6 +196,8 @@ public class MainActivity extends AppCompatActivity
             finish();
 
         } else if (id == nav_notification) {
+
+        } else if (id == nav_setting){
 
         }
 

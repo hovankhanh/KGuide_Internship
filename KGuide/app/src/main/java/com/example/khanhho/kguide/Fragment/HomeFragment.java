@@ -47,7 +47,6 @@ public class HomeFragment extends Fragment {
 
         // Khi người dùng click vào các ListItem
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
             Intent intent = new Intent(getContext(), DetailNotificationActivity.class);
@@ -55,7 +54,7 @@ public class HomeFragment extends Fragment {
             intent.putExtra("idTourist",idTourist.get(position));
             intent.putExtra("idGuide", idGuide.get(position));
             intent.putExtra("idTour", idTour.get(position));
-                intent.putExtra("idBooking", idBooking.get(position));
+            intent.putExtra("idBooking", idBooking.get(position));
             startActivity(intent);
             }
         });

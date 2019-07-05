@@ -12,13 +12,20 @@
         android:layout_height="150dp"
         android:background="@android:color/holo_blue_bright"/>
 
-    <ImageView
-        android:layout_width="100dp"
+    <LinearLayout
         android:layout_marginTop="-50dp"
-        android:layout_height="100dp"
-        android:background="@android:color/white"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_notification"/>
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@android:color/white">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/white"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_notification"/>
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

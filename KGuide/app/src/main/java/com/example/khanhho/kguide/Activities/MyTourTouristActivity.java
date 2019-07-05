@@ -42,13 +42,10 @@ public class MyTourTouristActivity extends AppCompatActivity {
         this.getSupportActionBar().setDisplayShowHomeEnabled(true);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         List<Booking> data = getListData();
         final ListView listView = (ListView)findViewById(R.id.lv_history_tourist);
         adapter = new HistoryTouristAdapter(this,data);
         listView.setAdapter(adapter);
-
-
 
         // Khi người dùng click vào các ListItem
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

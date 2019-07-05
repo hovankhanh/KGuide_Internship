@@ -61,6 +61,7 @@ public class TourFragment extends Fragment {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                tourList.clear();
                 for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
                     for (DataSnapshot abc : messageSnapshot.getChildren()) {
                         tour = abc.getValue(Tour.class);

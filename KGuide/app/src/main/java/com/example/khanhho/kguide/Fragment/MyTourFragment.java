@@ -19,6 +19,7 @@ import com.example.khanhho.kguide.Activities.TourDetailActivity;
 import com.example.khanhho.kguide.Adapter.MytourAdapter;
 import com.example.khanhho.kguide.Model.Tour;
 import com.example.khanhho.kguide.R;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,6 +37,8 @@ public class MyTourFragment extends Fragment implements MytourAdapter.OnClickLis
     private Tour tour;
     private MytourAdapter adapter;
     private List<String> idList = new ArrayList<>();
+    private Task<Void> reference;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,9 +75,10 @@ public class MyTourFragment extends Fragment implements MytourAdapter.OnClickLis
         final List<Tour> list = new ArrayList<Tour>();
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         DatabaseReference myRef = database.child("tour").child(currentUser);
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list.clear();
                 for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
                     tour = messageSnapshot.getValue(Tour.class);
                     list.add(tour);
@@ -100,16 +104,16 @@ public class MyTourFragment extends Fragment implements MytourAdapter.OnClickLis
 
     @Override
     public void onDeleteClick(int pos) {
-        alertView("Are your sure to delete?");
+        alertView("Are your sure to delete?", pos);
     }
 
-    private void alertView(String message) {
+    private void alertView(String message, final int pos) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
         dialog.setTitle("Confirm")
                 .setMessage(message)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialoginterface, int i) {
-
+                        reference = FirebaseDatabase.getInstance().getReference("tour").child(currentUser).child(idList.get(pos)).removeValue();
                     }
                 }).setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
             @Override

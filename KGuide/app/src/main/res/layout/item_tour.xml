@@ -25,17 +25,15 @@
             android:text="Image 10"
             android:id="@+id/tv_name_tour"
             android:textStyle="bold"
-            android:textColor="#FFF"
+            android:textColor="@android:color/white"
             android:layout_marginLeft="5dp"/>
         <TextView
             android:id="@+id/tv_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="khanh"
-            android:textColor="#FFF"
+            android:textColor="@android:color/white"
             android:gravity="right"
             android:layout_marginRight="10dp"/>
     </LinearLayout>
-
-
 </RelativeLayout>
