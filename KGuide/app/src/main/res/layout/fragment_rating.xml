@@ -17,7 +17,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/circle_avatar"/>
+            android:background="@drawable/guide_icon"/>
 
         <TextView
             android:textColor="@android:color/black"
@@ -45,7 +45,7 @@
         <TextView
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="conttenconttenconttenconttenconttenconttenconttencontten"
+            android:text="Tour is good"
             android:layout_marginLeft="30dp"/>
         <RatingBar
            android:layout_gravity="right"
@@ -81,7 +81,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/circle_avatar"/>
+            android:background="@drawable/icon_doremon"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -110,7 +110,7 @@
         <TextView
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="conttenconttenconttenconttenconttenconttenconttencontten"
+            android:text="guide is so freindly andkind"
             android:layout_marginLeft="30dp"/>
         <RatingBar
             android:layout_gravity="right"
